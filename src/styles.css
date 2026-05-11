@@ -1,0 +1,383 @@
+:root {
+  color: #fff7df;
+  background: #191926;
+  font-family:
+    "Trebuchet MS",
+    "Lucida Sans",
+    Arial,
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  min-width: 320px;
+  height: 100%;
+  margin: 0;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  color: inherit;
+  font: inherit;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.menu-screen,
+.game-shell,
+.error-screen {
+  min-height: 100%;
+}
+
+.menu-screen {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background-position: center;
+  background-size: cover;
+  image-rendering: pixelated;
+}
+
+.menu-panel {
+  position: relative;
+  width: min(620px, 100%);
+  padding: 28px;
+  border: 4px solid #ffe6a8;
+  border-radius: 8px;
+  background: rgba(31, 28, 47, 0.92);
+  box-shadow: 0 16px 0 rgba(0, 0, 0, 0.26);
+  text-align: center;
+}
+
+.menu-title {
+  margin: 0;
+  color: #ffe6a8;
+  font-size: clamp(2rem, 6vw, 4.8rem);
+  line-height: 0.95;
+  text-shadow: 4px 4px 0 #8f4f6f;
+}
+
+.menu-subtitle {
+  max-width: 460px;
+  margin: 18px auto 0;
+  color: #d7f8ff;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.menu-actions,
+.dialogue-controls,
+.choices,
+.top-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.menu-actions {
+  margin-top: 26px;
+}
+
+.primary-button,
+.secondary-button,
+.ghost-button,
+.choice-button,
+.icon-button {
+  min-height: 44px;
+  border: 3px solid #111322;
+  box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.28);
+  transition:
+    transform 120ms ease,
+    filter 120ms ease;
+}
+
+.primary-button:hover,
+.secondary-button:hover,
+.ghost-button:hover,
+.choice-button:hover,
+.icon-button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.primary-button {
+  padding: 10px 18px;
+  background: #ff6f9c;
+}
+
+.secondary-button {
+  padding: 10px 18px;
+  background: #3f9dff;
+}
+
+.ghost-button {
+  padding: 10px 18px;
+  background: #2e3047;
+}
+
+.choice-button {
+  width: min(100%, 360px);
+  padding: 10px 14px;
+  background: #5c5dc8;
+  text-align: left;
+}
+
+.icon-button {
+  min-width: 92px;
+  padding: 8px 12px;
+  background: #24253a;
+}
+
+.menu-mute {
+  margin-top: 20px;
+}
+
+.game-shell {
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: #10111c;
+}
+
+.stage {
+  position: relative;
+  width: min(1180px, 100%);
+  aspect-ratio: 16 / 9;
+  min-height: 560px;
+  overflow: hidden;
+  border: 4px solid #ffe6a8;
+  border-radius: 8px;
+  background-color: #20233a;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 18px 0 rgba(0, 0, 0, 0.35);
+  image-rendering: pixelated;
+}
+
+.topbar {
+  position: absolute;
+  z-index: 5;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.topbar > * {
+  pointer-events: auto;
+}
+
+.scene-name {
+  max-width: min(52vw, 460px);
+  padding: 10px 14px;
+  border: 3px solid #111322;
+  border-radius: 6px;
+  background: rgba(24, 25, 38, 0.84);
+  color: #ffe6a8;
+  box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.26);
+  font-weight: 700;
+}
+
+.object-layer,
+.character-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.character-layer {
+  pointer-events: none;
+}
+
+.character-sprite {
+  position: absolute;
+  bottom: 22%;
+  width: clamp(150px, 22vw, 270px);
+  max-height: 62%;
+  object-fit: contain;
+  filter: drop-shadow(8px 10px 0 rgba(0, 0, 0, 0.25));
+  image-rendering: pixelated;
+}
+
+.character-sprite.left {
+  left: 10%;
+}
+
+.character-sprite.center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.character-sprite.right {
+  right: 10%;
+}
+
+.clickable {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 2px solid rgba(255, 230, 168, 0.62);
+  background: rgba(255, 230, 168, 0.08);
+  box-shadow: none;
+}
+
+.clickable:hover,
+.clickable:focus-visible {
+  background: rgba(255, 230, 168, 0.22);
+  outline: 3px solid #ffe6a8;
+  outline-offset: 2px;
+}
+
+.clickable img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.dialogue-box {
+  position: absolute;
+  z-index: 6;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  min-height: 170px;
+  padding: 18px;
+  border: 4px solid #ffe6a8;
+  border-radius: 8px;
+  background: rgba(24, 25, 38, 0.93);
+  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.28);
+}
+
+.dialogue-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.speaker {
+  display: block;
+  font-size: 1.05rem;
+}
+
+.dialogue-counter {
+  color: #a9ebff;
+  font-size: 0.88rem;
+}
+
+.dialogue-text {
+  min-height: 52px;
+  margin: 12px 0 16px;
+  font-size: clamp(1rem, 2vw, 1.22rem);
+  line-height: 1.5;
+}
+
+.dialogue-controls {
+  justify-content: flex-end;
+}
+
+.choices {
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.end-box {
+  max-width: 740px;
+  margin: auto;
+}
+
+.error-screen {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #191926;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .game-shell {
+    padding: 0;
+  }
+
+  .stage {
+    width: 100%;
+    min-height: 100svh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .topbar {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .scene-name {
+    max-width: 48vw;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .icon-button {
+    min-width: auto;
+    min-height: 38px;
+    padding: 7px 9px;
+    font-size: 0.84rem;
+  }
+
+  .character-sprite {
+    bottom: 30%;
+    width: clamp(132px, 38vw, 210px);
+  }
+
+  .character-sprite.left {
+    left: 3%;
+  }
+
+  .character-sprite.right {
+    right: 3%;
+  }
+
+  .dialogue-box {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    min-height: 210px;
+    padding: 14px;
+  }
+
+  .dialogue-controls,
+  .choices {
+    justify-content: stretch;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .ghost-button,
+  .choice-button {
+    width: 100%;
+  }
+}

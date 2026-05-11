@@ -1,0 +1,273 @@
+{
+  "title": "Segundo Aniversario",
+  "subtitle": "Un pequeno recorrido pixel art por recuerdos, promesas y detalles escondidos.",
+  "startScene": "plaza",
+  "audio": {
+    "music": {
+      "menu": "procedural:menu",
+      "plaza": "procedural:warm",
+      "habitacion": "procedural:cozy",
+      "azotea": "procedural:stars"
+    },
+    "sfx": {
+      "blip": "procedural:blip",
+      "choice": "procedural:choice",
+      "paper": "procedural:paper",
+      "sparkle": "procedural:sparkle",
+      "click": "procedural:click"
+    }
+  },
+  "characters": {
+    "narrator": {
+      "name": "Recuerdo",
+      "color": "#ffe6a8"
+    },
+    "leo": {
+      "name": "Tu",
+      "color": "#89d4ff",
+      "sprite": "assets/characters/leo.svg",
+      "side": "left"
+    },
+    "sofia": {
+      "name": "Ella",
+      "color": "#ff9ac2",
+      "sprite": "assets/characters/sofia.svg",
+      "side": "right"
+    }
+  },
+  "scenes": {
+    "plaza": {
+      "name": "Plaza de las luces",
+      "background": "assets/backgrounds/plaza.svg",
+      "music": "plaza",
+      "dialogues": [
+        {
+          "character": "narrator",
+          "text": "La noche empieza con luces pequenas, bancas conocidas y una sorpresa escondida.",
+          "sfx": "sparkle"
+        },
+        {
+          "character": "leo",
+          "text": "Hoy queria hacer algo distinto: caminar por nuestros recuerdos como si fueran escenarios de un juego."
+        },
+        {
+          "character": "sofia",
+          "text": "Entonces prometeme que hay detalles escondidos. Me gusta descubrir cosas."
+        },
+        {
+          "character": "narrator",
+          "text": "Hay una carta sobre la banca y un camino iluminado hacia otro recuerdo.",
+          "choices": [
+            {
+              "label": "Leer la carta juntos",
+              "goToScene": "habitacion",
+              "actions": [
+                {
+                  "type": "setFlag",
+                  "flag": "letter_read",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "label": "Subir a mirar las estrellas",
+              "goToScene": "azotea"
+            }
+          ]
+        }
+      ],
+      "clickables": [
+        {
+          "id": "carta_banca",
+          "label": "Carta",
+          "tooltip": "Leer la carta de la banca",
+          "image": "assets/objects/letter.svg",
+          "x": 61,
+          "y": 58,
+          "width": 8,
+          "height": 12,
+          "sfx": "paper",
+          "actions": [
+            {
+              "type": "setFlag",
+              "flag": "letter_found",
+              "value": true
+            }
+          ],
+          "inspectDialogue": [
+            {
+              "character": "narrator",
+              "text": "La carta dice: 'Dos anos despues, sigo eligiendo la misma aventura contigo.'",
+              "sfx": "paper"
+            },
+            {
+              "character": "sofia",
+              "text": "Esta carta se queda guardada en mi inventario sentimental."
+            }
+          ]
+        },
+        {
+          "id": "farol",
+          "label": "Farol",
+          "tooltip": "Tocar el farol",
+          "image": "assets/objects/star.svg",
+          "x": 29,
+          "y": 28,
+          "width": 6,
+          "height": 10,
+          "sfx": "sparkle",
+          "inspectDialogue": [
+            {
+              "character": "narrator",
+              "text": "El farol parpadea como si supiera que esta noche importa."
+            }
+          ]
+        }
+      ]
+    },
+    "habitacion": {
+      "name": "Habitacion de recuerdos",
+      "background": "assets/backgrounds/bedroom.svg",
+      "music": "habitacion",
+      "dialogues": [
+        {
+          "character": "sofia",
+          "text": "Este lugar tiene todas esas cosas pequenas que cuentan una historia completa."
+        },
+        {
+          "character": "leo",
+          "text": "Cada objeto puede convertirse en una escena nueva. Solo hay que cambiar el JSON y poner tus graficos."
+        },
+        {
+          "character": "narrator",
+          "text": "Una foto espera sobre el escritorio. Tal vez desbloquee una ruta mas dulce.",
+          "choices": [
+            {
+              "label": "Volver a la plaza",
+              "goToScene": "plaza"
+            },
+            {
+              "label": "Ir a la azotea con la foto",
+              "goToScene": "azotea",
+              "requiresFlags": ["photo_seen"]
+            }
+          ]
+        }
+      ],
+      "clickables": [
+        {
+          "id": "foto",
+          "label": "Foto",
+          "tooltip": "Mirar la foto del escritorio",
+          "image": "assets/objects/photo.svg",
+          "x": 69,
+          "y": 52,
+          "width": 9,
+          "height": 12,
+          "sfx": "sparkle",
+          "actions": [
+            {
+              "type": "setFlag",
+              "flag": "photo_seen",
+              "value": true
+            }
+          ],
+          "inspectDialogue": [
+            {
+              "character": "narrator",
+              "text": "La foto guarda un dia simple: risas, comida rica y una caminata sin apuro."
+            },
+            {
+              "character": "leo",
+              "text": "Cuando agregues tus imagenes, este objeto puede abrir un recuerdo real."
+            }
+          ]
+        },
+        {
+          "id": "corazon",
+          "label": "Corazon",
+          "tooltip": "Ver el adorno del estante",
+          "image": "assets/objects/heart.svg",
+          "x": 18,
+          "y": 40,
+          "width": 7,
+          "height": 10,
+          "sfx": "click",
+          "inspectDialogue": [
+            {
+              "character": "sofia",
+              "text": "Este adorno parece pequeno, pero tiene energia de final feliz."
+            }
+          ]
+        }
+      ]
+    },
+    "azotea": {
+      "name": "Azotea con estrellas",
+      "background": "assets/backgrounds/rooftop.svg",
+      "music": "azotea",
+      "dialogues": [
+        {
+          "character": "narrator",
+          "text": "Arriba, la ciudad suena lejos y las estrellas parecen botones esperando una decision.",
+          "sfx": "sparkle"
+        },
+        {
+          "character": "sofia",
+          "text": "Si esto es un juego, mi ruta favorita es la que seguimos construyendo."
+        },
+        {
+          "character": "leo",
+          "text": "Entonces esta base queda lista para llenarla con nuestros lugares, fotos, musica y secretos."
+        },
+        {
+          "character": "narrator",
+          "text": "Por ahora, la demo termina aqui. Pero el motor ya puede crecer escena por escena.",
+          "choices": [
+            {
+              "label": "Regresar a la habitacion",
+              "goToScene": "habitacion"
+            },
+            {
+              "label": "Volver a empezar",
+              "goToScene": "plaza",
+              "actions": [
+                {
+                  "type": "setFlag",
+                  "flag": "demo_finished",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "clickables": [
+        {
+          "id": "estrella",
+          "label": "Estrella",
+          "tooltip": "Pedir un deseo",
+          "image": "assets/objects/star.svg",
+          "x": 76,
+          "y": 19,
+          "width": 6,
+          "height": 8,
+          "sfx": "sparkle",
+          "inspectDialogue": [
+            {
+              "character": "narrator",
+              "text": "Deseo guardado. Puedes usar flags como este para desbloquear rutas mas adelante."
+            }
+          ],
+          "actions": [
+            {
+              "type": "setFlag",
+              "flag": "wish_made",
+              "value": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

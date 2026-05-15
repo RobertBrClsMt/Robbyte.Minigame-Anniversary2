@@ -225,7 +225,7 @@ class AudioManager {
   private currentMusic?: string;
   private muted = false;
 
-  constructor(private readonly data?: GameData["audio"]) {}
+  constructor(private readonly data?: GameData["audio"]) { }
 
   setMuted(muted: boolean) {
     this.muted = muted;
@@ -770,7 +770,7 @@ function renderMenu() {
   audio.playMusic("menu");
 
   const screen = el("main", "menu-screen");
-  screen.style.backgroundImage = `linear-gradient(rgba(8, 14, 28, 0.32), rgba(8, 14, 28, 0.78)), url("${assetUrl("assets/backgrounds/bg_habitacion_recuerdos.svg")}")`;
+  screen.style.backgroundImage = `linear-gradient(rgba(8, 14, 28, 0.32), rgba(8, 14, 28, 0.78)), url("${assetUrl("assets/backgrounds/bg_habitacion_recuerdos.png")}")`;
 
   const panel = el("section", "menu-panel");
   const eyebrow = el("p", "eyebrow", "Segundo aniversario");

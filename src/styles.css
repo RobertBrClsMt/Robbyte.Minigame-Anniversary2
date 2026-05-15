@@ -254,7 +254,7 @@ button:disabled {
   pointer-events: none;
 }
 
-.topbar > * {
+.topbar>* {
   pointer-events: auto;
 }
 
@@ -310,27 +310,43 @@ button:disabled {
   display: grid;
   place-items: center;
   padding: 0;
-  border: 2px solid rgba(255, 230, 168, 0.5);
-  border-radius: 3px;
-  background: rgba(8, 12, 23, 0.12);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    2px 2px 0 rgba(0, 0, 0, 0.18);
+  border: 0;
+  background: transparent;
+  height: 50px;
+  box-shadow: none;
+  overflow: visible;
+  transform-origin: center;
+  transition: transform 140ms ease;
+}
+
+.clickable::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
 }
 
 .clickable:hover,
 .clickable:focus-visible {
-  background: rgba(255, 230, 168, 0.2);
-  outline: 3px solid var(--gold);
-  outline-offset: 2px;
+  outline: 0;
+  transform: translateY(-1px) scale(1.03);
 }
 
 .clickable img {
+  position: relative;
   width: 100%;
   height: 100%;
   object-fit: contain;
   image-rendering: pixelated;
   pointer-events: none;
+  transition:
+    filter 140ms ease,
+    transform 140ms ease;
+}
+
+.clickable:hover img,
+.clickable:focus-visible img {
+  filter:
+    brightness(1.18) drop-shadow(0 0 11px rgba(255, 230, 168, 0.74)) drop-shadow(0 0 4px rgba(169, 235, 255, 0.48));
 }
 
 .dialogue-box {

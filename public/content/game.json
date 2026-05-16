@@ -507,6 +507,99 @@
       "description": "Un marco vacío para la noche en que miren el cielo estrellado juntos."
     }
   },
+  "gallery_extra": {
+    "photo_burgerfest_ticket": {
+      "title": "Ticket BurgerFest",
+      "date": "18/05/2024",
+      "category": "Primeros momentos",
+      "image": "assets/photos/photo_burgerfest_ticket.svg",
+      "description": "Una invitación que parecía simple, pero abrió una historia."
+    },
+    "photo_manos": {
+      "title": "Primera foto de manos",
+      "date": "18/05/2024",
+      "category": "Primeros momentos",
+      "image": "assets/photos/photo_manos.png",
+      "description": "Nuestra primera foto no necesitó mostrar rostros."
+    },
+    "photo_tamalito": {
+      "title": "Tamalito y rosas",
+      "date": "2024",
+      "category": "Detalles",
+      "image": "assets/photos/photo_tamalito.svg",
+      "description": "Un panda, unas rosas y las ganas de verte feliz."
+    },
+    "photo_cajita": {
+      "title": "Cajita de cartas",
+      "date": "2024",
+      "category": "Cartas",
+      "image": "assets/photos/photo_cajita.svg",
+      "description": "Algunas palabras no se guardan en papel. Se guardan en el pecho."
+    },
+    "photo_carta_250724": {
+      "title": "Carta 25/07/24",
+      "date": "25/07/2024",
+      "category": "Cartas",
+      "image": "assets/photos/photo_carta_250724.svg",
+      "description": "Hay cartas que parecen promesas de otra vida."
+    },
+    "photo_siddhartha": {
+      "title": "Siddhartha",
+      "date": "2024",
+      "category": "Conciertos",
+      "image": "assets/photos/photo_siddhartha.svg",
+      "description": "Verla cantar fue la parte favorita del concierto."
+    },
+    "photo_conciertos": {
+      "title": "Conciertos juntos",
+      "date": "2024-2025",
+      "category": "Conciertos",
+      "image": "assets/photos/photo_conciertos.svg",
+      "description": "Entre luces y ruido, también aprendimos a encontrarnos."
+    },
+    "photo_mocca": {
+      "title": "Mocca y el parque",
+      "date": "2024",
+      "category": "Vida cotidiana",
+      "image": "assets/photos/photo_mocca.svg",
+      "description": "Los paseos simples también se vuelven recuerdos."
+    },
+    "photo_raura": {
+      "title": "Raura",
+      "date": "2025",
+      "category": "Viajes",
+      "image": "assets/photos/photo_raura.svg",
+      "description": "Frío afuera, memoria cálida adentro."
+    },
+    "photo_osaka": {
+      "title": "Osaka",
+      "date": "25/05/2025",
+      "category": "Aniversarios",
+      "image": "assets/photos/photo_osaka.svg",
+      "description": "Una cena tranquila para celebrar lo que estaban construyendo."
+    },
+    "photo_aniversario_parque": {
+      "title": "Parque de noche",
+      "date": "25/05/2025",
+      "category": "Aniversarios",
+      "image": "assets/photos/photo_aniversario_parque.svg",
+      "description": "No sabemos el nombre del parque, pero sí lo que sentimos esa noche."
+    },
+    "photo_girasoles": {
+      "title": "Girasoles",
+      "date": "2026",
+      "category": "Detalles",
+      "image": "assets/photos/photo_girasoles.svg",
+      "description": "Una flor que mira hacia la luz, como Jennifer."
+    },
+    "photo_cielo_estrellado": {
+      "title": "Próximo recuerdo",
+      "date": "Futuro",
+      "category": "Futuro",
+      "image": "assets/photos/photo_cielo_estrellado.svg",
+      "description": "Un marco vacío para la noche en que miren el cielo estrellado juntos."
+    }
+  },
   "minigames": {
     "mg_invitar_burgerfest": {
       "title": "Enviar la invitación",
@@ -885,8 +978,8 @@
           ]
         },
         {
-          "id": "girasol",
-          "label": "Girasol",
+          "id": "cuadro_recuerdos",
+          "label": "Cuadro de recuerdos",
           "tooltip": "Ver recuerdos",
           "image": "assets/objects/obj_cuadro_recuerdos.png",
           "x": 19.4,
@@ -898,6 +991,24 @@
             {
               "type": "showScreen",
               "screen": "memories"
+            }
+          ]
+        },
+        {
+          "id": "cajon_abierto",
+          "label": "Cajón abierto",
+          "tooltip": "Ver más recuerdos",
+          "hoverImage": "assets/objects/obj_cajon_abierto.png",
+          "hoverImageStyle": "framed",
+          "x": 37.6,
+          "y": 58.5,
+          "width": 7,
+          "height": 7,
+          "sfx": "camera",
+          "actions": [
+            {
+              "type": "showScreen",
+              "screen": "gallery_extra"
             }
           ]
         }

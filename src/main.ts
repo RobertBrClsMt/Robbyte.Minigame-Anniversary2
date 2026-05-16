@@ -487,6 +487,48 @@ function replaceApp(node: HTMLElement) {
   app.replaceChildren(node);
 }
 
+function isPhoneDevice() {
+  const nav = navigator as Navigator & {
+    userAgentData?: { mobile?: boolean };
+  };
+  const userAgent = navigator.userAgent;
+  const tabletUserAgent = /iPad|Tablet|PlayBook|Silk|Android(?!.*Mobile)/i.test(userAgent);
+
+  if (tabletUserAgent) {
+    return false;
+  }
+
+  if (nav.userAgentData?.mobile) {
+    return true;
+  }
+
+  if (/iPhone|iPod|Android.*Mobile|Windows Phone|IEMobile|BlackBerry|BB10|Opera Mini|Mobi/i.test(userAgent)) {
+    return true;
+  }
+
+  const hasTouch = navigator.maxTouchPoints > 0 || window.matchMedia("(pointer: coarse)").matches;
+  const shortSide = Math.min(window.screen.width, window.screen.height);
+  const longSide = Math.max(window.screen.width, window.screen.height);
+
+  return hasTouch && shortSide < 600 && longSide < 1000;
+}
+
+function renderMobileDeviceNotice() {
+  const screen = el("main", "device-warning-screen");
+  const panel = el("section", "device-warning-panel");
+  panel.append(
+    el("p", "eyebrow", "Pantalla grande recomendada"),
+    el("h1", "screen-title", "Abre esta web en un PC de escritorio o laptop"),
+    el(
+      "p",
+      "screen-copy",
+      "Este minijuego está pensado para una pantalla más amplia. Para una mejor experiencia, vuelve a abrirlo desde un PC de escritorio o laptop.",
+    ),
+  );
+  screen.append(panel);
+  replaceApp(screen);
+}
+
 function getData() {
   if (!gameData) {
     throw new Error("Game data has not loaded.");
@@ -1553,6 +1595,11 @@ function installAutosaveHandlers() {
 }
 
 async function bootstrap() {
+  if (isPhoneDevice()) {
+    renderMobileDeviceNotice();
+    return;
+  }
+
   try {
     const response = await fetch(assetUrl("content/game.json"));
     if (!response.ok) {

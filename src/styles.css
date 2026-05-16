@@ -55,6 +55,7 @@ button:disabled {
 
 .menu-screen,
 .game-shell,
+.device-warning-screen,
 .error-screen,
 .catalog-screen,
 .letter-screen,
@@ -66,6 +67,7 @@ button:disabled {
 }
 
 .menu-screen,
+.device-warning-screen,
 .modal-screen,
 .credits-screen,
 .error-screen {
@@ -78,6 +80,7 @@ button:disabled {
 }
 
 .menu-panel,
+.device-warning-panel,
 .unlock-panel,
 .credits-panel {
   position: relative;

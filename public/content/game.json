@@ -426,7 +426,7 @@
       "title": "Primera foto de manos",
       "date": "18/05/2024",
       "category": "Primeros momentos",
-      "image": "assets/photos/photo_manos.svg",
+      "image": "assets/photos/photo_manos.png",
       "description": "Nuestra primera foto no necesitó mostrar rostros."
     },
     "photo_tamalito": {
@@ -839,8 +839,8 @@
           "label": "Mapa",
           "tooltip": "Seguir el próximo recuerdo",
           "image": "assets/objects/obj_mapa_estelar.svg",
-          "x": 42,
-          "y": 15,
+          "x": 47,
+          "y": 7,
           "width": 5,
           "height": 5,
           "sfx": "sparkle",
@@ -855,10 +855,10 @@
           "label": "Cajita",
           "tooltip": "Abrir cartas",
           "image": "assets/objects/obj_cajita_cartas.svg",
-          "x": 20,
-          "y": 60,
-          "width": 12,
-          "height": 14,
+          "x": 80,
+          "y": 27,
+          "width": 5,
+          "height": 5,
           "sfx": "paper",
           "actions": [
             {
@@ -872,10 +872,10 @@
           "label": "Álbum",
           "tooltip": "Abrir galería",
           "image": "assets/objects/obj_album.svg",
-          "x": 42,
-          "y": 62,
-          "width": 14,
-          "height": 13,
+          "x": 80,
+          "y": 60,
+          "width": 3,
+          "height": 3,
           "sfx": "camera",
           "actions": [
             {
@@ -889,10 +889,10 @@
           "label": "Girasol",
           "tooltip": "Ver recuerdos",
           "image": "assets/objects/obj_girasol.svg",
-          "x": 83,
-          "y": 53,
-          "width": 9,
-          "height": 18,
+          "x": 20,
+          "y": 7,
+          "width": 5,
+          "height": 5,
           "sfx": "sparkle",
           "actions": [
             {

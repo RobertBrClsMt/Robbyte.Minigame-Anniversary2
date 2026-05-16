@@ -352,6 +352,12 @@ button:disabled {
     brightness(1.18) drop-shadow(0 0 11px rgba(255, 230, 168, 0.74)) drop-shadow(0 0 4px rgba(169, 235, 255, 0.48));
 }
 
+.clickable img.framed-hover-image {
+  background: transparent;
+  filter:
+    brightness(1);
+}
+
 .dialogue-box {
   position: relative;
   z-index: 2;

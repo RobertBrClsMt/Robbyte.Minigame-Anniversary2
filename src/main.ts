@@ -3,12 +3,14 @@ import "./styles.css";
 type FlagMap = Record<string, boolean>;
 type UnlockMap = Record<string, boolean>;
 
+type GalleryScreen = "gallery" | "gallery_extra";
+
 type Screen =
   | "menu"
   | "game"
   | "memories"
   | "letters"
-  | "gallery"
+  | GalleryScreen
   | "options"
   | "credits"
   | "minigame"
@@ -59,6 +61,8 @@ type Clickable = {
   id: string;
   label: string;
   image?: string;
+  hoverImage?: string;
+  hoverImageStyle?: "framed";
   x: number;
   y: number;
   width: number;
@@ -150,6 +154,7 @@ type GameData = {
   minigames: Record<string, Minigame>;
   credits: string[];
   scenes: Record<string, Scene>;
+  gallery_extra?: Record<string, GalleryItem>;
 };
 
 type InspectionState = {
@@ -592,6 +597,10 @@ function hasRequiredMemories(required?: string[]) {
   return !required?.some((memory) => !state.unlocked.memories[memory]);
 }
 
+function hasUnlockedAllMemories() {
+  return Object.keys(getData().memories).every((memoryId) => state.unlocked.memories[memoryId]);
+}
+
 function isHiddenByFlags(hiddenWhen?: string[]) {
   return Boolean(hiddenWhen?.some((flag) => state.flags[flag]));
 }
@@ -712,7 +721,11 @@ function renderScreen(screen: Exclude<Screen, "game" | "minigame">) {
     return;
   }
   if (screen === "gallery") {
-    renderGallery();
+    renderGallery("gallery");
+    return;
+  }
+  if (screen === "gallery_extra") {
+    renderGallery("gallery_extra");
     return;
   }
   if (screen === "options") {
@@ -924,13 +937,42 @@ function renderClickable(clickable: Clickable) {
   button.title = clickable.tooltip ?? clickable.label;
   button.setAttribute("aria-label", clickable.label);
 
-  if (clickable.image) {
+  if (clickable.image || clickable.hoverImage) {
     const image = el("img");
-    image.src = assetUrl(clickable.image);
     image.alt = "";
     button.append(image);
-  } else {
-    button.textContent = clickable.label;
+
+    if (clickable.image) {
+      image.src = assetUrl(clickable.image);
+    } else {
+      image.style.opacity = "0";
+    }
+
+    if (clickable.hoverImage) {
+      const normalImage = clickable.image ? assetUrl(clickable.image) : undefined;
+      const hoverImage = assetUrl(clickable.hoverImage);
+      const preload = new Image();
+      preload.src = hoverImage;
+
+      const showHoverImage = () => {
+        image.src = hoverImage;
+        image.style.opacity = "1";
+        image.classList.toggle("framed-hover-image", clickable.hoverImageStyle === "framed");
+      };
+      const showNormalImage = () => {
+        if (normalImage) {
+          image.src = normalImage;
+        } else {
+          image.style.opacity = "0";
+        }
+        image.classList.remove("framed-hover-image");
+      };
+
+      button.addEventListener("mouseenter", showHoverImage);
+      button.addEventListener("mouseleave", showNormalImage);
+      button.addEventListener("focus", showHoverImage);
+      button.addEventListener("blur", showNormalImage);
+    }
   }
 
   button.addEventListener("click", () => {
@@ -1419,8 +1461,18 @@ function renderLetter(id: string, back: ReturnScreen) {
   replaceApp(screen);
 }
 
-function renderGallery() {
-  state.screen = "gallery";
+function getGalleryCollection(gallery: GalleryScreen) {
+  const data = getData();
+  return gallery === "gallery_extra" ? data.gallery_extra ?? {} : data.gallery;
+}
+
+function renderGallery(gallery: GalleryScreen = "gallery") {
+  if (gallery === "gallery_extra") {
+    renderGalleryExtra();
+    return;
+  }
+
+  state.screen = gallery;
   audio.playMusic("hub");
 
   const screen = renderCatalogShell("Galería", "Fotos reales y espacios temporales para cambiarlos luego por PNG o JPG.");
@@ -1448,13 +1500,82 @@ function renderGallery() {
   replaceApp(screen);
 }
 
-function renderGalleryItem(id: string, back: ReturnScreen) {
-  const item = getData().gallery[id];
-  if (!item) {
-    renderGallery();
+function renderGalleryExtra() {
+  if (!hasUnlockedAllMemories()) {
+    renderGalleryExtraLockedNotice();
     return;
   }
-  state.unlocked.gallery[id] = true;
+
+  state.screen = "gallery_extra";
+  audio.playMusic("hub");
+
+  const screen = renderCatalogShell("Galeria extra", "Fotos extra guardadas en este cajon de recuerdos.");
+  const grid = el("div", "catalog-grid gallery-grid");
+
+  for (const [id, item] of Object.entries(getGalleryCollection("gallery_extra"))) {
+    const card = el("article", "catalog-card gallery-card");
+    const image = el("img", "gallery-thumb");
+    image.src = assetUrl(item.image);
+    image.alt = item.title;
+    card.append(
+      image,
+      el("h2", undefined, item.title),
+      el("p", "catalog-meta", `${item.date} Â· ${item.category}`),
+      el("p", "catalog-copy", item.description),
+      makeButton("secondary-button small-button", "Ver", () => renderGalleryItem(id, "gallery_extra", "gallery_extra")),
+    );
+    grid.append(card);
+  }
+
+  screen.querySelector(".catalog-body")?.append(grid);
+  replaceApp(screen);
+}
+
+function renderGalleryExtraLockedNotice() {
+  audio.playSfx("soft");
+
+  const screen = el("main", "modal-screen");
+  const currentScene = getData().scenes[state.sceneId];
+  if (currentScene) {
+    screen.style.backgroundImage = `linear-gradient(rgba(8, 14, 28, 0.62), rgba(8, 14, 28, 0.9)), url("${assetUrl(currentScene.background)}")`;
+  }
+
+  const panel = el("section", "unlock-panel");
+  panel.append(
+    el("h1", "screen-title", "Cajon bloqueado"),
+    el(
+      "p",
+      "screen-copy",
+      "Para entrar aqui, primero debes completar o encontrar todos los recuerdos.",
+    ),
+    makeButton("primary-button", "Volver a la habitacion", () => enterScene(getData().startScene)),
+  );
+  screen.append(panel);
+  replaceApp(screen);
+}
+
+function renderGalleryItem(id: string, back: ReturnScreen, gallery: GalleryScreen = "gallery") {
+  const data = getData();
+  let item: GalleryItem | undefined = getGalleryCollection(gallery)[id];
+  let itemGallery = gallery;
+
+  if (!item && gallery !== "gallery") {
+    item = data.gallery[id];
+    itemGallery = "gallery";
+  }
+
+  if (!item && gallery !== "gallery_extra") {
+    item = data.gallery_extra?.[id];
+    itemGallery = "gallery_extra";
+  }
+
+  if (!item) {
+    renderGallery(back === "gallery_extra" ? "gallery_extra" : "gallery");
+    return;
+  }
+  if (itemGallery === "gallery") {
+    state.unlocked.gallery[id] = true;
+  }
   saveGame();
 
   const screen = el("main", "gallery-detail-screen");
@@ -1469,8 +1590,9 @@ function renderGalleryItem(id: string, back: ReturnScreen) {
     el("p", "screen-copy", item.description),
   );
   const controls = el("div", "dialogue-controls");
+  const backScreen: Exclude<Screen, "game" | "minigame"> = back === "game" ? itemGallery : back;
   controls.append(
-    makeButton("primary-button", "Volver", () => renderScreen(back === "game" ? "gallery" : back)),
+    makeButton("primary-button", "Volver", () => renderScreen(backScreen)),
     makeButton("ghost-button", "Menú", renderMenu),
   );
   panel.append(controls);

@@ -205,6 +205,35 @@ type SaveData = {
   completedMinigames: UnlockMap;
 };
 
+type IconName =
+  | "back"
+  | "close"
+  | "home"
+  | "image"
+  | "letter"
+  | "music"
+  | "next"
+  | "play"
+  | "reset"
+  | "save"
+  | "settings"
+  | "speaker";
+
+const ICONS: Record<IconName, string> = {
+  back: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>`,
+  close: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>`,
+  home: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/><path d="M9 20v-6h6v6"/></svg>`,
+  image: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m21 15-5-5L5 19"/></svg>`,
+  letter: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h12a3 3 0 0 1 3 3v11H7a3 3 0 0 0-3 0Z"/><path d="M7 5v14"/><path d="M10 9h5"/><path d="M10 13h4"/></svg>`,
+  music: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>`,
+  next: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`,
+  play: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7Z"/></svg>`,
+  reset: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6"/></svg>`,
+  save: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h12l2 2v14H5Z"/><path d="M8 4v6h8V4"/><path d="M8 20v-6h8v6"/></svg>`,
+  settings: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 1 1 4.2 17l.1-.1A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1A2 2 0 1 1 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 1 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.1a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>`,
+  speaker: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M16 9.5a4 4 0 0 1 0 5"/><path d="M19 7a8 8 0 0 1 0 10"/></svg>`,
+};
+
 const SAVE_KEY = "ven-a-buscarme-save-v2";
 const LEGACY_SAVE_KEY = "anniversary-vn-save-v1";
 const MUTE_KEY = "anniversary-vn-muted-v1";
@@ -221,6 +250,7 @@ const app = appElement;
 let gameData: GameData | null = null;
 let lastLineAudioKey = "";
 let typeTimer: number | undefined;
+let activeSettingsClose: (() => void) | undefined;
 let state: AppState = {
   screen: "menu",
   sceneId: "",
@@ -598,11 +628,57 @@ function el<K extends keyof HTMLElementTagNameMap>(
 
 function makeButton(className: string, text: string, onClick: () => void) {
   const button = el("button", className, text);
+  button.type = "button";
+  button.title = text;
+  button.setAttribute("aria-label", text);
+  button.addEventListener("click", onClick);
+  return button;
+}
+
+function makeIcon(icon: IconName) {
+  const wrapper = el("span", "button-icon");
+  wrapper.innerHTML = ICONS[icon];
+  wrapper.setAttribute("aria-hidden", "true");
+  return wrapper;
+}
+
+function makeIconButton(
+  className: string,
+  icon: IconName,
+  label: string,
+  onClick: () => void,
+  pressed?: boolean,
+) {
+  const button = el("button", `${className} icon-only`);
+  button.type = "button";
+  button.title = label;
+  button.setAttribute("aria-label", label);
+  if (pressed !== undefined) {
+    button.setAttribute("aria-pressed", String(pressed));
+  }
+  button.append(makeIcon(icon));
+  button.addEventListener("click", onClick);
+  return button;
+}
+
+function makeIconTextButton(
+  className: string,
+  icon: IconName,
+  text: string,
+  onClick: () => void,
+  title = text,
+) {
+  const button = el("button", `${className} button-with-icon`);
+  button.type = "button";
+  button.title = title;
+  button.setAttribute("aria-label", title);
+  button.append(makeIcon(icon), el("span", "button-label", text));
   button.addEventListener("click", onClick);
   return button;
 }
 
 function replaceApp(node: HTMLElement) {
+  activeSettingsClose?.();
   if (typeTimer) {
     window.clearInterval(typeTimer);
     typeTimer = undefined;
@@ -717,6 +793,10 @@ function hasRequiredMemories(required?: string[]) {
 
 function hasUnlockedAllMemories() {
   return Object.keys(getData().memories).every((memoryId) => state.unlocked.memories[memoryId]);
+}
+
+function shouldShowNextMemoryButton() {
+  return !hasUnlockedAllMemories();
 }
 
 function isHiddenByFlags(hiddenWhen?: string[]) {
@@ -963,22 +1043,11 @@ function renderMenu() {
   actions.append(
     makeButton("primary-button", "Empezar", startNewGame),
     makeButton("secondary-button", "Continuar", continueGame),
-    makeButton("secondary-button", "Recuerdos", renderMemories),
-    makeButton("secondary-button", "Cartas", renderLetters),
-    makeButton("secondary-button", "Galería", renderGallery),
-    makeButton("ghost-button", "Opciones", renderOptions),
-    makeButton("ghost-button", "Salir", renderExit),
+    makeIconButton("ghost-button", "settings", "Opciones", renderOptions),
   );
   (actions.children[1] as HTMLButtonElement).disabled = !hasSave;
 
-  const mute = makeButton("icon-button menu-mute", state.musicMuted ? "Musica OFF" : "Musica ON", () => {
-    state.musicMuted = !state.musicMuted;
-    saveAudioSettings();
-    audio.setMusicMuted(state.musicMuted);
-    renderMenu();
-  });
-
-  panel.append(eyebrow, title, subtitle, actions, mute);
+  panel.append(eyebrow, title, subtitle, actions);
   screen.append(panel);
   replaceApp(screen);
 }
@@ -997,7 +1066,7 @@ function renderGame() {
   const stage = el("section", "stage");
   stage.style.backgroundImage = `url("${assetUrl(scene.background)}")`;
 
-  const topbar = renderTopbar(scene.name);
+  const topbar = renderTopbar(scene);
 
   const objectLayer = el("div", "object-layer");
   for (const clickable of scene.clickables ?? []) {
@@ -1029,22 +1098,16 @@ function renderGame() {
   playLineAudio(line);
 }
 
-function renderTopbar(sceneName: string) {
+function renderTopbar(scene: Scene) {
   const topbar = el("div", "topbar");
-  const sceneLabel = el("div", "scene-name", sceneName);
+  const sceneLabel = el("div", "scene-name", scene.name);
   const topActions = el("div", "top-actions");
-  const mute = makeButton("icon-button", state.musicMuted ? "Musica OFF" : "Musica ON", () => {
-    state.musicMuted = !state.musicMuted;
-    saveAudioSettings();
-    audio.setMusicMuted(state.musicMuted);
-    renderGame();
-  });
+  if (!scene.hub) {
+    topActions.append(makeIconButton("icon-button", "back", "Habitación", () => enterScene(getData().startScene)));
+  }
   topActions.append(
-    makeButton("icon-button", "Recuerdos", renderMemories),
-    makeButton("icon-button", "Cartas", renderLetters),
-    makeButton("icon-button", "Galería", renderGallery),
-    mute,
-    makeButton("icon-button", "Menú", renderMenu),
+    makeIconButton("icon-button", "settings", "Opciones", renderOptions),
+    makeIconButton("icon-button", "home", "Menú", renderMenu),
   );
   topbar.append(sceneLabel, topActions);
   return topbar;
@@ -1288,7 +1351,7 @@ function renderSceneEnd() {
     makeButton("ghost-button", "Habitación", () => enterScene(getData().startScene)),
   );
   box.append(title, text, controls);
-  stage.append(renderTopbar(scene.name));
+  stage.append(renderTopbar(scene));
   shell.append(stage, box);
   replaceApp(shell);
 }
@@ -1301,22 +1364,22 @@ function renderHubEnd(scene: Scene) {
   for (const clickable of scene.clickables ?? []) {
     objectLayer.append(renderClickable(clickable));
   }
+  const showNextMemoryButton = shouldShowNextMemoryButton();
   const box = el("section", "dialogue-box end-box");
   const title = el("strong", "speaker", "Habitación de recuerdos");
   const text = el(
     "p",
     "dialogue-text",
-    "La cajita, el álbum y el mapa siguen aquí. Puedes continuar el siguiente recuerdo o revisar lo que ya guardaste.",
+    showNextMemoryButton
+      ? "La cajita, el álbum y el mapa siguen aquí. Puedes continuar el siguiente recuerdo o revisar lo que ya guardaste."
+      : "La cajita, el álbum y el mapa siguen aquí. Puedes revisar lo que ya guardaste.",
   );
   const controls = el("div", "dialogue-controls");
-  controls.append(
-    makeButton("primary-button", "Siguiente recuerdo", enterNextChapter),
-    makeButton("secondary-button", "Recuerdos", renderMemories),
-    makeButton("secondary-button", "Cartas", renderLetters),
-    makeButton("secondary-button", "Galería", renderGallery),
-  );
+  if (showNextMemoryButton) {
+    controls.append(makeButton("primary-button", "Siguiente recuerdo", enterNextChapter));
+  }
   box.append(title, text, controls);
-  stage.append(renderTopbar(scene.name), objectLayer);
+  stage.append(renderTopbar(scene), objectLayer);
   shell.append(stage, box);
   replaceApp(shell);
 }
@@ -1336,18 +1399,19 @@ function completeScene(sceneId: string, skipMinigame = false) {
     return;
   }
 
+  const showNextMemoryButton = Boolean(scene.nextScene) && shouldShowNextMemoryButton();
   renderUnlockScreen(
     scene.completionTitle ?? "Recuerdo guardado",
     scene.completionText ?? "El recuerdo quedó guardado en la habitación.",
     gained,
     () => {
-      if (scene.nextScene) {
+      if (showNextMemoryButton && scene.nextScene) {
         enterScene(scene.nextScene);
       } else {
         enterScene(getData().startScene);
       }
     },
-    scene.nextScene ? "Siguiente recuerdo" : "Volver a la habitación",
+    showNextMemoryButton ? "Siguiente recuerdo" : "Volver a la habitación",
   );
 }
 
@@ -1534,8 +1598,9 @@ function renderMemories() {
     const status = el("span", completed ? "status done" : "status", completed ? "Guardado" : "Pendiente");
     card.append(number, title, meta, copy, status);
     if (unlocked) {
+      const label = completed ? "Revisitar" : "Jugar";
       card.append(
-        makeButton("secondary-button small-button", completed ? "Revisitar" : "Jugar", () => enterScene(memory.scene)),
+        makeIconTextButton("secondary-button small-button", "play", label, () => enterScene(memory.scene), `${label} ${memory.title}`),
       );
     }
     grid.append(card);
@@ -1561,7 +1626,7 @@ function renderLetters() {
       el("p", "catalog-copy", unlocked ? letter.description : "Se desbloquea al avanzar por los recuerdos."),
     );
     if (unlocked) {
-      card.append(makeButton("secondary-button small-button", "Leer", () => renderLetter(id, "letters")));
+      card.append(makeIconTextButton("secondary-button small-button", "letter", "Leer", () => renderLetter(id, "letters"), `Leer ${letter.title}`));
     }
     grid.append(card);
   }
@@ -1587,8 +1652,8 @@ function renderLetter(id: string, back: ReturnScreen) {
   }
   const controls = el("div", "dialogue-controls");
   controls.append(
-    makeButton("primary-button", "Guardar en la cajita", () => renderScreen(back === "game" ? "letters" : back)),
-    makeButton("ghost-button", "Menú", renderMenu),
+    makeIconTextButton("primary-button", "save", "Guardar en la cajita", () => renderScreen(back === "game" ? "letters" : back), "Guardar en la cajita"),
+    makeIconButton("ghost-button", "home", "Menú", renderMenu),
   );
   paper.append(controls);
   screen.append(paper);
@@ -1625,7 +1690,7 @@ function renderGallery(gallery: GalleryScreen = "gallery") {
       el("p", "catalog-copy", unlocked ? item.description : "Reemplaza este espacio cuando tengas la foto real."),
     );
     if (unlocked) {
-      card.append(makeButton("secondary-button small-button", "Ver", () => renderGalleryItem(id, "gallery")));
+      card.append(makeIconTextButton("secondary-button small-button", "image", "Ver", () => renderGalleryItem(id, "gallery"), `Ver ${item.title}`));
     }
     grid.append(card);
   }
@@ -1656,7 +1721,7 @@ function renderGalleryExtra() {
       el("h2", undefined, item.title),
       el("p", "catalog-meta", `${item.date} Â· ${item.category}`),
       el("p", "catalog-copy", item.description),
-      makeButton("secondary-button small-button", "Ver", () => renderGalleryItem(id, "gallery_extra", "gallery_extra")),
+      makeIconTextButton("secondary-button small-button", "image", "Ver", () => renderGalleryItem(id, "gallery_extra", "gallery_extra"), `Ver ${item.title}`),
     );
     grid.append(card);
   }
@@ -1682,7 +1747,7 @@ function renderGalleryExtraLockedNotice() {
       "screen-copy",
       "Para entrar aqui, primero debes completar o encontrar todos los recuerdos.",
     ),
-    makeButton("primary-button", "Volver a la habitacion", () => enterScene(getData().startScene)),
+    makeIconTextButton("primary-button", "back", "Volver a la habitación", () => enterScene(getData().startScene), "Volver a la habitación"),
   );
   screen.append(panel);
   replaceApp(screen);
@@ -1726,8 +1791,8 @@ function renderGalleryItem(id: string, back: ReturnScreen, gallery: GalleryScree
   const controls = el("div", "dialogue-controls");
   const backScreen: Exclude<Screen, "game" | "minigame"> = back === "game" ? itemGallery : back;
   controls.append(
-    makeButton("primary-button", "Volver", () => renderScreen(backScreen)),
-    makeButton("ghost-button", "Menú", renderMenu),
+    makeIconButton("primary-button", "back", "Volver", () => renderScreen(backScreen)),
+    makeIconButton("ghost-button", "home", "Menú", renderMenu),
   );
   panel.append(controls);
   screen.append(panel);
@@ -1735,34 +1800,104 @@ function renderGalleryItem(id: string, back: ReturnScreen, gallery: GalleryScree
 }
 
 function renderOptions() {
-  state.screen = "options";
-  const screen = renderCatalogShell("Opciones", "Ajustes simples para probar el regalo.");
-  const panel = el("section", "options-panel");
-  panel.append(
-    makeButton("primary-button", state.musicMuted ? "Activar musica" : "Silenciar musica", () => {
-      state.musicMuted = !state.musicMuted;
-      saveAudioSettings();
-      audio.setMusicMuted(state.musicMuted);
-      renderOptions();
-    }),
-    makeButton("secondary-button", state.sfxMuted ? "Activar efectos" : "Silenciar efectos", () => {
-      state.sfxMuted = !state.sfxMuted;
-      saveAudioSettings();
-      audio.setSfxMuted(state.sfxMuted);
-      renderOptions();
-    }),
-    makeButton("ghost-button", "Reiniciar progreso", () => {
+  openSettingsPopup();
+}
+
+function openSettingsPopup() {
+  activeSettingsClose?.();
+
+  const overlay = el("div", "settings-overlay");
+  const panel = el("section", "settings-popover");
+  panel.setAttribute("role", "dialog");
+  panel.setAttribute("aria-modal", "true");
+  panel.setAttribute("aria-label", "Opciones del juego");
+
+  const closePopup = () => {
+    overlay.remove();
+    window.removeEventListener("keydown", handleKeydown);
+    if (activeSettingsClose === closePopup) {
+      activeSettingsClose = undefined;
+    }
+  };
+
+  const handleKeydown = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      closePopup();
+    }
+  };
+
+  const renderSettingsContent = () => {
+    const header = el("div", "settings-header");
+    const titleBlock = el("div");
+    titleBlock.append(el("p", "eyebrow", "Opciones"), el("h2", "settings-title", "Configuración"));
+    header.append(
+      titleBlock,
+      makeIconButton("icon-button settings-close", "close", "Cerrar opciones", closePopup),
+    );
+
+    const controls = el("div", "settings-controls");
+    controls.append(
+      makeSettingsToggle("music", "Música", state.musicMuted, () => {
+        state.musicMuted = !state.musicMuted;
+        saveAudioSettings();
+        audio.setMusicMuted(state.musicMuted);
+        renderSettingsContent();
+      }),
+      makeSettingsToggle("speaker", "Efectos", state.sfxMuted, () => {
+        state.sfxMuted = !state.sfxMuted;
+        saveAudioSettings();
+        audio.setSfxMuted(state.sfxMuted);
+        renderSettingsContent();
+      }),
+    );
+
+    const resetButton = makeButton("settings-reset", "Reiniciar progreso", () => {
       resetSave();
       state.unlocked = createInitialUnlocks(getData());
       state.completedScenes = {};
       state.completedMinigames = {};
       state.flags = {};
-      renderOptions();
-    }),
-    el("p", "catalog-copy", "Si cambias muchos datos del juego, reinicia el progreso para evitar continuar desde un punto viejo."),
-  );
-  screen.querySelector(".catalog-body")?.append(panel);
-  replaceApp(screen);
+      renderSettingsContent();
+    });
+    resetButton.prepend(makeIcon("reset"));
+
+    panel.replaceChildren(
+      header,
+      controls,
+      resetButton,
+      el("p", "settings-hint", "Reinicia el progreso si cambiaste datos del juego y una partida quedó en un punto viejo."),
+    );
+  };
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+      closePopup();
+    }
+  });
+  window.addEventListener("keydown", handleKeydown);
+
+  renderSettingsContent();
+  overlay.append(panel);
+  app.append(overlay);
+  activeSettingsClose = closePopup;
+
+  const closeButton = panel.querySelector<HTMLButtonElement>(".settings-close");
+  closeButton?.focus();
+}
+
+function makeSettingsToggle(icon: IconName, label: string, muted: boolean, onClick: () => void) {
+  const action = muted ? "Activar" : "Silenciar";
+  const button = el("button", `settings-toggle${muted ? " is-muted" : ""}`);
+  button.type = "button";
+  button.title = `${action} ${label.toLowerCase()}`;
+  button.setAttribute("aria-label", `${action} ${label.toLowerCase()}`);
+  button.setAttribute("aria-pressed", String(!muted));
+
+  const copy = el("span", "settings-toggle-copy");
+  copy.append(el("strong", "", label), el("span", "settings-toggle-status", muted ? "Apagado" : "Activo"));
+  button.append(makeIcon(icon), copy);
+  button.addEventListener("click", onClick);
+  return button;
 }
 
 function renderCredits() {
@@ -1801,10 +1936,12 @@ function renderCatalogShell(titleText: string, copyText: string) {
   header.append(el("h1", "screen-title", titleText), el("p", "screen-copy", copyText));
   const actions = el("div", "catalog-actions");
   actions.append(
-    makeButton("primary-button", "Siguiente recuerdo", enterNextChapter),
-    makeButton("secondary-button", "Habitación", () => enterScene(getData().startScene)),
-    makeButton("ghost-button", "Menú", renderMenu),
+    makeIconButton("secondary-button", "back", "Habitación", () => enterScene(getData().startScene)),
+    makeIconButton("ghost-button", "home", "Menú", renderMenu),
   );
+  if (shouldShowNextMemoryButton()) {
+    actions.append(makeIconButton("primary-button", "next", "Siguiente recuerdo", enterNextChapter));
+  }
   header.append(actions);
   const body = el("section", "catalog-body");
   screen.append(header, body);

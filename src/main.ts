@@ -1052,7 +1052,7 @@ function renderMenu() {
   const actions = el("div", "menu-actions");
   const hasSave = Boolean(loadSave());
   const startButton = hasSave
-    ? makeButton("secondary-button", "Habitacion", enterSavedHub)
+    ? makeButton("secondary-button", "Habitación", enterSavedHub)
     : makeButton("primary-button", "Empezar", startNewGame);
   const continueButton = hasSave
     ? makeButton("primary-button", "Continuar", continueGame)
@@ -1133,8 +1133,12 @@ function renderClickable(clickable: Clickable) {
   button.style.top = `${clickable.y}%`;
   button.style.width = `${clickable.width}%`;
   button.style.height = `${clickable.height}%`;
-  button.title = clickable.tooltip ?? clickable.label;
-  button.setAttribute("aria-label", clickable.label);
+  const titleText = clickable.tooltip ?? clickable.label;
+  button.classList.add(
+    clickable.y < 18 ? "title-below" : "title-above",
+    clickable.x < 18 ? "title-left" : clickable.x + clickable.width > 82 ? "title-right" : "title-center",
+  );
+  button.setAttribute("aria-label", titleText === clickable.label ? clickable.label : `${clickable.label}: ${titleText}`);
 
   if (clickable.image || clickable.hoverImage) {
     const image = el("img");
@@ -1173,6 +1177,8 @@ function renderClickable(clickable: Clickable) {
       button.addEventListener("blur", showNormalImage);
     }
   }
+
+  button.append(el("span", "clickable-title", titleText));
 
   if (clickable.hoverSfx) {
     const playHoverSfx = () => audio.playObjectSfx(clickable.hoverSfx, clickable.hoverSfxVolume);

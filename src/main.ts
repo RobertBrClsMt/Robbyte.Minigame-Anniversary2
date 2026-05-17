@@ -235,6 +235,7 @@ let state: AppState = {
 
 class AudioManager {
   private context?: AudioContext;
+  private resumePromise?: Promise<void>;
   private musicTimer?: number;
   private htmlMusic?: HTMLAudioElement;
   private currentMusic?: string;
@@ -245,6 +246,11 @@ class AudioManager {
   private sfxMuted = false;
 
   constructor(private readonly data?: GameData["audio"]) { }
+
+  unlock() {
+    this.context ??= new AudioContext();
+    return this.resumeContext();
+  }
 
   setMusicMuted(muted: boolean) {
     this.musicMuted = muted;
@@ -362,10 +368,22 @@ class AudioManager {
 
   private ensureContext() {
     this.context ??= new AudioContext();
-    if (this.context.state === "suspended") {
-      this.context.resume().catch(() => undefined);
-    }
+    this.resumeContext();
     return this.context;
+  }
+
+  private resumeContext() {
+    if (!this.context || this.context.state !== "suspended") {
+      return Promise.resolve();
+    }
+
+    this.resumePromise ??= this.context
+      .resume()
+      .catch(() => undefined)
+      .then(() => {
+        this.resumePromise = undefined;
+      });
+    return this.resumePromise;
   }
 
   private stopMusic(clearCurrent = true) {
@@ -1838,6 +1856,16 @@ function installAutosaveHandlers() {
   });
 }
 
+function installAudioUnlockHandlers() {
+  const unlockAudio = () => {
+    void audio.unlock();
+  };
+
+  window.addEventListener("pointerdown", unlockAudio, { passive: true });
+  window.addEventListener("touchstart", unlockAudio, { passive: true });
+  window.addEventListener("keydown", unlockAudio);
+}
+
 async function bootstrap() {
   if (isPhoneDevice()) {
     renderMobileDeviceNotice();
@@ -1855,6 +1883,7 @@ async function bootstrap() {
     state.unlocked = createInitialUnlocks(gameData);
     audio.setMusicMuted(state.musicMuted);
     audio.setSfxMuted(state.sfxMuted);
+    installAudioUnlockHandlers();
     window.addEventListener("keydown", handleKeyboard);
     installAutosaveHandlers();
 

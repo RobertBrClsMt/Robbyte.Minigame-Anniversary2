@@ -795,8 +795,17 @@ function hasUnlockedAllMemories() {
   return Object.keys(getData().memories).every((memoryId) => state.unlocked.memories[memoryId]);
 }
 
+function getNextChapterMemory() {
+  const sortedMemories = getSortedMemories();
+  return (
+    sortedMemories.find(
+      ([memoryId, memory]) => state.unlocked.memories[memoryId] && !state.completedScenes[memory.scene],
+    ) ?? sortedMemories.find(([, memory]) => !state.completedScenes[memory.scene])
+  );
+}
+
 function shouldShowNextMemoryButton() {
-  return !hasUnlockedAllMemories();
+  return Boolean(getNextChapterMemory());
 }
 
 function isHiddenByFlags(hiddenWhen?: string[]) {
@@ -951,20 +960,11 @@ function enterScene(sceneId: string, dialogueIndex = 0) {
 }
 
 function enterNextChapter() {
-  const nextMemory = getSortedMemories().find(
-    ([, memory]) =>
-      state.unlocked.memories[getMemoryId(memory)] && !state.completedScenes[memory.scene],
-  );
-
+  const nextMemory = getNextChapterMemory();
   if (nextMemory) {
-    enterScene(nextMemory[1].scene);
-    return;
-  }
-
-  const lockedNext = getSortedMemories().find(([, memory]) => !state.completedScenes[memory.scene]);
-  if (lockedNext) {
-    state.unlocked.memories[getMemoryId(lockedNext[1])] = true;
-    enterScene(lockedNext[1].scene);
+    const [memoryId, memory] = nextMemory;
+    state.unlocked.memories[memoryId] = true;
+    enterScene(memory.scene);
     return;
   }
 
@@ -972,6 +972,10 @@ function enterNextChapter() {
 }
 
 function startNewGame() {
+  if (loadSave() && !window.confirm("Esto borrara el progreso guardado. Quieres empezar de nuevo?")) {
+    return;
+  }
+
   const data = getData();
   state = {
     screen: "game",
@@ -997,7 +1001,15 @@ function continueGame() {
   }
 }
 
-function restoreSave(save: SaveData) {
+function enterSavedHub() {
+  const save = loadSave();
+  if (!save) {
+    return;
+  }
+  restoreSave(save, getData().startScene, 0);
+}
+
+function restoreSave(save: SaveData, targetSceneId = save.sceneId, targetDialogueIndex = save.dialogueIndex) {
   if (!getData().scenes[save.sceneId]) {
     localStorage.removeItem(SAVE_KEY);
     return false;
@@ -1005,8 +1017,8 @@ function restoreSave(save: SaveData) {
 
   state = {
     screen: "game",
-    sceneId: save.sceneId,
-    dialogueIndex: save.dialogueIndex,
+    sceneId: targetSceneId,
+    dialogueIndex: targetDialogueIndex,
     flags: save.flags ?? {},
     unlocked: save.unlocked ?? createInitialUnlocks(getData()),
     completedScenes: save.completedScenes ?? {},
@@ -1017,7 +1029,7 @@ function restoreSave(save: SaveData) {
   mergeInitialUnlocks();
   audio.setMusicMuted(state.musicMuted);
   audio.setSfxMuted(state.sfxMuted);
-  enterScene(save.sceneId, save.dialogueIndex);
+  enterScene(targetSceneId, targetDialogueIndex);
   return true;
 }
 
@@ -1039,13 +1051,15 @@ function renderMenu() {
   );
   const actions = el("div", "menu-actions");
   const hasSave = Boolean(loadSave());
+  const startButton = hasSave
+    ? makeButton("secondary-button", "Habitacion", enterSavedHub)
+    : makeButton("primary-button", "Empezar", startNewGame);
+  const continueButton = hasSave
+    ? makeButton("primary-button", "Continuar", continueGame)
+    : makeButton("secondary-button", "Continuar", continueGame);
+  continueButton.disabled = !hasSave;
 
-  actions.append(
-    makeButton("primary-button", "Empezar", startNewGame),
-    makeButton("secondary-button", "Continuar", continueGame),
-    makeIconButton("ghost-button", "settings", "Opciones", renderOptions),
-  );
-  (actions.children[1] as HTMLButtonElement).disabled = !hasSave;
+  actions.append(continueButton, startButton, makeIconButton("ghost-button", "settings", "Opciones", renderOptions));
 
   panel.append(eyebrow, title, subtitle, actions);
   screen.append(panel);
@@ -1852,12 +1866,16 @@ function openSettingsPopup() {
     );
 
     const resetButton = makeButton("settings-reset", "Reiniciar progreso", () => {
+      if (!window.confirm("Esto borrara todo el progreso guardado. Quieres reiniciar?")) {
+        return;
+      }
+
       resetSave();
       state.unlocked = createInitialUnlocks(getData());
       state.completedScenes = {};
       state.completedMinigames = {};
       state.flags = {};
-      renderSettingsContent();
+      window.location.reload();
     });
     resetButton.prepend(makeIcon("reset"));
 
@@ -1950,13 +1968,6 @@ function renderCatalogShell(titleText: string, copyText: string) {
 
 function getSortedMemories() {
   return Object.entries(getData().memories).sort((a, b) => a[1].chapter - b[1].chapter);
-}
-
-function getMemoryId(memoryToFind: Memory) {
-  return (
-    Object.entries(getData().memories).find(([, memory]) => memory === memoryToFind)?.[0] ??
-    memoryToFind.scene
-  );
 }
 
 function playLineAudio(line: DialogueLine) {

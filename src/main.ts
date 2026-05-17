@@ -87,6 +87,12 @@ type Character = {
   color: string;
   sprite?: string;
   side?: "left" | "center" | "right";
+  spriteWidth?: string;
+  spriteMaxHeight?: string;
+  spriteBottom?: string;
+  spriteMobileWidth?: string;
+  spriteMobileMaxHeight?: string;
+  spriteMobileBottom?: string;
 };
 
 type Scene = {
@@ -1102,6 +1108,24 @@ function renderGame() {
     const characterImage = el("img", `character-sprite ${character?.side ?? "center"}`);
     characterImage.src = assetUrl(sprite);
     characterImage.alt = character?.name ?? "";
+    if (character?.spriteWidth) {
+      characterImage.style.setProperty("--character-sprite-width", character.spriteWidth);
+    }
+    if (character?.spriteMaxHeight) {
+      characterImage.style.setProperty("--character-sprite-max-height", character.spriteMaxHeight);
+    }
+    if (character?.spriteBottom) {
+      characterImage.style.setProperty("--character-sprite-bottom", character.spriteBottom);
+    }
+    if (character?.spriteMobileWidth) {
+      characterImage.style.setProperty("--character-sprite-mobile-width", character.spriteMobileWidth);
+    }
+    if (character?.spriteMobileMaxHeight) {
+      characterImage.style.setProperty("--character-sprite-mobile-max-height", character.spriteMobileMaxHeight);
+    }
+    if (character?.spriteMobileBottom) {
+      characterImage.style.setProperty("--character-sprite-mobile-bottom", character.spriteMobileBottom);
+    }
     characterLayer.append(characterImage);
   }
 

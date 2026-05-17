@@ -63,7 +63,7 @@ Para fondos usa `background`; para sprites usa `sprite`; para objetos del hub us
 
 La historia vive en `public/content/game.json`:
 
-- `characters`: nombres, colores y sprites de Robert/Jennifer.
+- `characters`: nombres, colores, sprites, tamaños y posición de sprite de Robert/Jennifer.
 - `memories`: catálogo de los 30 recuerdos.
 - `letters`: cartas disponibles en la cajita.
 - `gallery`: fotos y placeholders.

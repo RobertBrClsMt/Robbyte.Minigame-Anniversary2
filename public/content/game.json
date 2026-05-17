@@ -59,14 +59,26 @@
     "robert": {
       "name": "Robert",
       "color": "#8bd6ff",
-      "sprite": "assets/characters/robert/normal.svg",
-      "side": "left"
+      "sprite": "assets/characters/robert/normal_mediocuerpo.png",
+      "side": "left",
+      "spriteWidth": "clamp(210px, 28vw, 360px)",
+      "spriteMaxHeight": "88%",
+      "spriteBottom": "0",
+      "spriteMobileWidth": "clamp(170px, 52vw, 260px)",
+      "spriteMobileMaxHeight": "82%",
+      "spriteMobileBottom": "0"
     },
     "jennifer": {
       "name": "Jennifer",
       "color": "#ffb4cc",
       "sprite": "assets/characters/jennifer/normal.svg",
-      "side": "right"
+      "side": "right",
+      "spriteWidth": "clamp(210px, 28vw, 360px)",
+      "spriteMaxHeight": "88%",
+      "spriteBottom": "0",
+      "spriteMobileWidth": "clamp(170px, 52vw, 260px)",
+      "spriteMobileMaxHeight": "82%",
+      "spriteMobileBottom": "0"
     }
   },
   "memories": {
@@ -442,7 +454,7 @@
       "title": "Tamalito y rosas",
       "date": "2024",
       "category": "Detalles",
-      "image": "assets/photos/photo_tamalito.svg",
+      "image": "assets/photos/photo_tamalito.png",
       "description": "Un panda, unas rosas y las ganas de verte feliz."
     },
     "photo_cajita": {
@@ -535,7 +547,7 @@
       "title": "Tamalito y rosas",
       "date": "2024",
       "category": "Detalles",
-      "image": "assets/photos/photo_tamalito.svg",
+      "image": "assets/photos/photo_tamalito.png",
       "description": "Un panda, unas rosas y las ganas de verte feliz."
     },
     "photo_cajita": {
@@ -957,7 +969,7 @@
         {
           "id": "cajita_cartas",
           "label": "Cajita",
-          "tooltip": "Abrir cartas",
+          "tooltip": "Abrir caja de cartas",
           "image": "assets/objects/obj_cajita_cartas.png",
           "hoverSfx": "caja_carton_hover",
           "hoverSfxVolume": 0.8,
@@ -978,7 +990,7 @@
         {
           "id": "album",
           "label": "Álbum",
-          "tooltip": "Abrir galería",
+          "tooltip": "Abrir álbum de fotos",
           "image": "assets/objects/obj_album.png",
           "hoverSfx": "album_hover",
           "hoverSfxVolume": 0.5,
@@ -1245,7 +1257,7 @@
     },
     "cap_08_tamalito_rosas": {
       "name": "Tamalito y las rosas",
-      "background": "assets/backgrounds/bg_08_tamalito_rosas.svg",
+      "background": "assets/photos/photo_tamalito.png",
       "music": "fair",
       "chapter": 8,
       "memoryId": "cap_08",

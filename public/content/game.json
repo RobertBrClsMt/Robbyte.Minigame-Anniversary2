@@ -39,7 +39,10 @@
       "unlock": "procedural:unlock",
       "soft": "procedural:soft",
       "water": "procedural:water",
-      "bell": "procedural:bell"
+      "bell": "procedural:bell",
+      "cajon_hover": "assets/sfx/sfx_cajon-hover.wav",
+      "album_hover": "assets/sfx/sfx_album-hover.wav",
+      "album_outhover": "assets/sfx/sfx_album-outhover.wav"
     }
   },
   "characters": {
@@ -965,6 +968,10 @@
           "label": "Álbum",
           "tooltip": "Abrir galería",
           "image": "assets/objects/obj_album.png",
+          "hoverSfx": "album_hover",
+          "hoverSfxVolume": 0.5,
+          "hoverOutSfx": "album_outhover",
+          "hoverOutSfxVolume": 0.2,
           "x": 70.1,
           "y": 53.4,
           "width": 18,
@@ -1000,6 +1007,12 @@
           "tooltip": "Ver más recuerdos",
           "hoverImage": "assets/objects/obj_cajon_abierto.png",
           "hoverImageStyle": "framed",
+          "hoverSfx": "cajon_hover",
+          "hoverSfxVolume": 0.8,
+          "hoverOutSfx": "cajon_hover",
+          "hoverOutSfxVolume": 0.5,
+          "clickSfx": "camera",
+          "clickSfxVolume": 0.8,
           "x": 37.6,
           "y": 58.5,
           "width": 7,

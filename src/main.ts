@@ -63,6 +63,12 @@ type Clickable = {
   image?: string;
   hoverImage?: string;
   hoverImageStyle?: "framed";
+  hoverSfx?: string;
+  hoverSfxVolume?: number;
+  hoverOutSfx?: string;
+  hoverOutSfxVolume?: number;
+  clickSfx?: string;
+  clickSfxVolume?: number;
   x: number;
   y: number;
   width: number;
@@ -183,7 +189,8 @@ type AppState = {
   };
   completedScenes: UnlockMap;
   completedMinigames: UnlockMap;
-  muted: boolean;
+  musicMuted: boolean;
+  sfxMuted: boolean;
   inspection?: InspectionState;
   activeMinigame?: ActiveMinigame;
 };
@@ -201,6 +208,8 @@ type SaveData = {
 const SAVE_KEY = "ven-a-buscarme-save-v2";
 const LEGACY_SAVE_KEY = "anniversary-vn-save-v1";
 const MUTE_KEY = "anniversary-vn-muted-v1";
+const MUSIC_MUTE_KEY = "anniversary-vn-music-muted-v1";
+const SFX_MUTE_KEY = "anniversary-vn-sfx-muted-v1";
 const appElement = document.querySelector<HTMLDivElement>("#app");
 
 if (!appElement) {
@@ -220,7 +229,8 @@ let state: AppState = {
   unlocked: emptyUnlocks(),
   completedScenes: {},
   completedMinigames: {},
-  muted: loadMuted(),
+  musicMuted: loadMusicMuted(),
+  sfxMuted: loadSfxMuted(),
 };
 
 class AudioManager {
@@ -228,12 +238,16 @@ class AudioManager {
   private musicTimer?: number;
   private htmlMusic?: HTMLAudioElement;
   private currentMusic?: string;
-  private muted = false;
+  private sfxCache = new Map<string, HTMLAudioElement>();
+  private activeObjectSfx?: HTMLAudioElement;
+  private activeObjectSfxStop?: () => void;
+  private musicMuted = false;
+  private sfxMuted = false;
 
   constructor(private readonly data?: GameData["audio"]) { }
 
-  setMuted(muted: boolean) {
-    this.muted = muted;
+  setMusicMuted(muted: boolean) {
+    this.musicMuted = muted;
     if (muted) {
       this.stopMusic(false);
       return;
@@ -246,11 +260,15 @@ class AudioManager {
     }
   }
 
+  setSfxMuted(muted: boolean) {
+    this.sfxMuted = muted;
+  }
+
   playMusic(key?: string) {
     this.currentMusic = key;
     this.stopMusic(false);
 
-    if (!key || this.muted) {
+    if (!key || this.musicMuted) {
       return;
     }
 
@@ -267,20 +285,79 @@ class AudioManager {
     this.htmlMusic = audio;
   }
 
-  playSfx(key?: string) {
-    if (!key || this.muted) {
+  playSfx(key?: string, volume = 1) {
+    this.playSfxAudio(key, volume);
+  }
+
+  playObjectSfx(key?: string, volume = 1) {
+    this.stopObjectSfx();
+    const playback = this.playSfxAudio(key, volume);
+    if (!playback) {
       return;
     }
 
+    this.activeObjectSfx = playback.audio;
+    this.activeObjectSfxStop = playback.stop;
+    if (playback.audio) {
+      playback.audio.addEventListener(
+        "ended",
+        () => {
+          if (this.activeObjectSfx === playback.audio) {
+            this.activeObjectSfx = undefined;
+            this.activeObjectSfxStop = undefined;
+          }
+        },
+        { once: true },
+      );
+    }
+  }
+
+  private playSfxAudio(key?: string, volume = 1) {
+    if (!key || this.sfxMuted) {
+      return undefined;
+    }
+
+    const volumeMultiplier = this.normalizeVolume(volume);
     const source = this.data?.sfx?.[key] ?? key;
     if (source.startsWith("procedural:")) {
-      this.playProceduralSfx(source.replace("procedural:", ""));
+      return { stop: this.playProceduralSfx(source.replace("procedural:", ""), volumeMultiplier) };
+    }
+
+    const url = assetUrl(source);
+    const cached = this.sfxCache.get(url);
+    const audio = cached ? cached.cloneNode() as HTMLAudioElement : new Audio(url);
+    if (!cached) {
+      audio.preload = "auto";
+      this.sfxCache.set(url, audio);
+    }
+    audio.volume = 0.62 * volumeMultiplier;
+    audio.currentTime = 0;
+    audio.play().catch(() => undefined);
+    return {
+      audio,
+      stop: () => {
+        audio.pause();
+        audio.currentTime = 0;
+      },
+    };
+  }
+
+  private stopObjectSfx() {
+    if (!this.activeObjectSfxStop) {
       return;
     }
 
-    const audio = new Audio(assetUrl(source));
-    audio.volume = 0.62;
-    audio.play().catch(() => undefined);
+    this.activeObjectSfxStop();
+    this.activeObjectSfx = undefined;
+    this.activeObjectSfxStop = undefined;
+  }
+
+  private normalizeVolume(volume: number) {
+    if (!Number.isFinite(volume)) {
+      return 1;
+    }
+
+    return Math.max(0, Math.min(1, volume));
   }
 
   private ensureContext() {
@@ -346,7 +423,7 @@ class AudioManager {
     }, 500);
   }
 
-  private playProceduralSfx(variant: string) {
+  private playProceduralSfx(variant: string, volume = 1) {
     const presets: Record<string, [number, number, OscillatorType]> = {
       blip: [740, 0.055, "square"],
       choice: [620, 0.11, "triangle"],
@@ -361,7 +438,7 @@ class AudioManager {
       bell: [1318.51, 0.18, "sine"],
     };
     const [frequency, duration, wave] = presets[variant] ?? presets.click;
-    this.playTone(frequency, duration, 0.085, wave);
+    return this.playTone(frequency, duration, 0.085 * volume, wave);
   }
 
   private playTone(
@@ -383,6 +460,22 @@ class AudioManager {
     oscillator.connect(gain).connect(context.destination);
     oscillator.start(now);
     oscillator.stop(now + duration + 0.03);
+
+    let stopped = false;
+    return () => {
+      if (stopped) {
+        return;
+      }
+
+      stopped = true;
+      try {
+        oscillator.stop();
+      } catch {
+        // The oscillator may have already ended naturally.
+      }
+      oscillator.disconnect();
+      gain.disconnect();
+    };
   }
 }
 
@@ -411,12 +504,19 @@ function assetUrl(path: string) {
   return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
 }
 
-function loadMuted() {
-  return localStorage.getItem(MUTE_KEY) === "true";
+function loadMusicMuted() {
+  const value = localStorage.getItem(MUSIC_MUTE_KEY);
+  return value === null ? localStorage.getItem(MUTE_KEY) === "true" : value === "true";
 }
 
-function saveMuted() {
-  localStorage.setItem(MUTE_KEY, String(state.muted));
+function loadSfxMuted() {
+  const value = localStorage.getItem(SFX_MUTE_KEY);
+  return value === null ? localStorage.getItem(MUTE_KEY) === "true" : value === "true";
+}
+
+function saveAudioSettings() {
+  localStorage.setItem(MUSIC_MUTE_KEY, String(state.musicMuted));
+  localStorage.setItem(SFX_MUTE_KEY, String(state.sfxMuted));
 }
 
 function loadSave(): SaveData | null {
@@ -783,10 +883,12 @@ function startNewGame() {
     unlocked: createInitialUnlocks(data),
     completedScenes: {},
     completedMinigames: {},
-    muted: state.muted,
+    musicMuted: state.musicMuted,
+    sfxMuted: state.sfxMuted,
   };
   resetSave();
-  audio.setMuted(state.muted);
+  audio.setMusicMuted(state.musicMuted);
+  audio.setSfxMuted(state.sfxMuted);
   enterScene(data.startScene);
 }
 
@@ -811,10 +913,12 @@ function restoreSave(save: SaveData) {
     unlocked: save.unlocked ?? createInitialUnlocks(getData()),
     completedScenes: save.completedScenes ?? {},
     completedMinigames: save.completedMinigames ?? {},
-    muted: state.muted,
+    musicMuted: state.musicMuted,
+    sfxMuted: state.sfxMuted,
   };
   mergeInitialUnlocks();
-  audio.setMuted(state.muted);
+  audio.setMusicMuted(state.musicMuted);
+  audio.setSfxMuted(state.sfxMuted);
   enterScene(save.sceneId, save.dialogueIndex);
   return true;
 }
@@ -849,10 +953,10 @@ function renderMenu() {
   );
   (actions.children[1] as HTMLButtonElement).disabled = !hasSave;
 
-  const mute = makeButton("icon-button menu-mute", state.muted ? "Audio OFF" : "Audio ON", () => {
-    state.muted = !state.muted;
-    saveMuted();
-    audio.setMuted(state.muted);
+  const mute = makeButton("icon-button menu-mute", state.musicMuted ? "Musica OFF" : "Musica ON", () => {
+    state.musicMuted = !state.musicMuted;
+    saveAudioSettings();
+    audio.setMusicMuted(state.musicMuted);
     renderMenu();
   });
 
@@ -911,10 +1015,10 @@ function renderTopbar(sceneName: string) {
   const topbar = el("div", "topbar");
   const sceneLabel = el("div", "scene-name", sceneName);
   const topActions = el("div", "top-actions");
-  const mute = makeButton("icon-button", state.muted ? "Audio OFF" : "Audio ON", () => {
-    state.muted = !state.muted;
-    saveMuted();
-    audio.setMuted(state.muted);
+  const mute = makeButton("icon-button", state.musicMuted ? "Musica OFF" : "Musica ON", () => {
+    state.musicMuted = !state.musicMuted;
+    saveAudioSettings();
+    audio.setMusicMuted(state.musicMuted);
     renderGame();
   });
   topActions.append(
@@ -975,8 +1079,20 @@ function renderClickable(clickable: Clickable) {
     }
   }
 
+  if (clickable.hoverSfx) {
+    const playHoverSfx = () => audio.playObjectSfx(clickable.hoverSfx, clickable.hoverSfxVolume);
+    button.addEventListener("mouseenter", playHoverSfx);
+    button.addEventListener("focus", playHoverSfx);
+  }
+
+  if (clickable.hoverOutSfx) {
+    const playHoverOutSfx = () => audio.playObjectSfx(clickable.hoverOutSfx, clickable.hoverOutSfxVolume);
+    button.addEventListener("mouseleave", playHoverOutSfx);
+    button.addEventListener("blur", playHoverOutSfx);
+  }
+
   button.addEventListener("click", () => {
-    audio.playSfx(clickable.sfx ?? "click");
+    audio.playObjectSfx(clickable.clickSfx ?? clickable.sfx ?? "click", clickable.clickSfxVolume);
     const rendered = runActions(clickable.actions);
     if (rendered) {
       return;
@@ -1605,10 +1721,16 @@ function renderOptions() {
   const screen = renderCatalogShell("Opciones", "Ajustes simples para probar el regalo.");
   const panel = el("section", "options-panel");
   panel.append(
-    makeButton("primary-button", state.muted ? "Activar audio" : "Silenciar audio", () => {
-      state.muted = !state.muted;
-      saveMuted();
-      audio.setMuted(state.muted);
+    makeButton("primary-button", state.musicMuted ? "Activar musica" : "Silenciar musica", () => {
+      state.musicMuted = !state.musicMuted;
+      saveAudioSettings();
+      audio.setMusicMuted(state.musicMuted);
+      renderOptions();
+    }),
+    makeButton("secondary-button", state.sfxMuted ? "Activar efectos" : "Silenciar efectos", () => {
+      state.sfxMuted = !state.sfxMuted;
+      saveAudioSettings();
+      audio.setSfxMuted(state.sfxMuted);
       renderOptions();
     }),
     makeButton("ghost-button", "Reiniciar progreso", () => {
@@ -1731,7 +1853,8 @@ async function bootstrap() {
     gameData = (await response.json()) as GameData;
     audio = new AudioManager(gameData.audio);
     state.unlocked = createInitialUnlocks(gameData);
-    audio.setMuted(state.muted);
+    audio.setMusicMuted(state.musicMuted);
+    audio.setSfxMuted(state.sfxMuted);
     window.addEventListener("keydown", handleKeyboard);
     installAutosaveHandlers();
 

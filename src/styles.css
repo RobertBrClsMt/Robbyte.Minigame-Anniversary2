@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
+
 :root {
   --ink: #070a14;
   --panel: rgba(13, 18, 34, 0.94);
@@ -10,14 +12,15 @@
   --cyan: #a9ebff;
   --violet: #5c5dc8;
   --line: #070a14;
+  --pixel-font:
+    "Pixelify Sans",
+    "Press Start 2P",
+    "VT323",
+    "Courier New",
+    monospace;
   color: #fff7df;
   background: #0b1020;
-  font-family:
-    Inter,
-    "Trebuchet MS",
-    "Lucida Sans",
-    Arial,
-    sans-serif;
+  font-family: var(--pixel-font);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -51,6 +54,12 @@ button {
 button:disabled {
   cursor: not-allowed;
   opacity: 0.45;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 .menu-screen,
@@ -110,13 +119,20 @@ button:disabled {
 .screen-title {
   margin: 0;
   color: var(--gold);
-  font-size: clamp(2rem, 6vw, 4.6rem);
-  line-height: 1;
-  text-shadow: 3px 3px 0 #8f4f6f;
+  font-family: var(--pixel-font);
+  font-size: clamp(2rem, 5.8vw, 4.4rem);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: 0;
+  text-wrap: balance;
+  text-shadow:
+    2px 2px 0 #8f4f6f,
+    4px 4px 0 rgba(7, 10, 20, 0.86),
+    0 0 18px rgba(255, 230, 168, 0.3);
 }
 
 .screen-title {
-  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  font-size: clamp(1.7rem, 4.5vw, 3.2rem);
 }
 
 .menu-subtitle,
@@ -316,6 +332,8 @@ button:disabled {
   box-shadow:
     inset -3px -3px 0 rgba(0, 0, 0, 0.22),
     3px 3px 0 rgba(0, 0, 0, 0.26);
+  font-family: var(--pixel-font);
+  letter-spacing: 0;
   font-weight: 800;
 }
 
@@ -403,6 +421,117 @@ button:disabled {
     brightness(1);
 }
 
+.clickable-title {
+  position: absolute;
+  z-index: 5;
+  display: block;
+  width: max-content;
+  max-width: min(230px, 36vw);
+  padding: 7px 10px;
+  border: 2px solid var(--line);
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+    rgba(12, 17, 32, 0.96);
+  box-shadow:
+    inset -3px -3px 0 rgba(0, 0, 0, 0.26),
+    3px 3px 0 rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(255, 230, 168, 0.45);
+  color: var(--gold);
+  font-family: var(--pixel-font);
+  font-size: clamp(0.72rem, 1.05vw, 0.92rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: 0;
+  opacity: 0;
+  pointer-events: none;
+  text-align: center;
+  text-shadow: 2px 2px 0 rgba(143, 79, 111, 0.78);
+  transform: translateY(4px);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.clickable-title::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  background: rgba(12, 17, 32, 0.96);
+}
+
+.clickable.title-center .clickable-title {
+  left: 50%;
+  transform: translate(-50%, 4px);
+}
+
+.clickable.title-left .clickable-title {
+  left: 0;
+}
+
+.clickable.title-right .clickable-title {
+  right: 0;
+}
+
+.clickable.title-above .clickable-title {
+  bottom: calc(100% + 12px);
+}
+
+.clickable.title-below .clickable-title {
+  top: calc(100% + 12px);
+}
+
+.clickable.title-above .clickable-title::after {
+  bottom: -7px;
+  transform: rotate(45deg);
+}
+
+.clickable.title-below .clickable-title::after {
+  top: -7px;
+  transform: rotate(225deg);
+}
+
+.clickable.title-center .clickable-title::after {
+  left: 50%;
+  margin-left: -6px;
+}
+
+.clickable.title-left .clickable-title::after {
+  left: 12px;
+}
+
+.clickable.title-right .clickable-title::after {
+  right: 12px;
+}
+
+.clickable:hover .clickable-title,
+.clickable:focus-visible .clickable-title {
+  opacity: 1;
+}
+
+.clickable.title-above:hover .clickable-title,
+.clickable.title-above:focus-visible .clickable-title {
+  transform: translateY(0);
+}
+
+.clickable.title-center.title-above:hover .clickable-title,
+.clickable.title-center.title-above:focus-visible .clickable-title {
+  transform: translate(-50%, 0);
+}
+
+.clickable.title-below:hover .clickable-title,
+.clickable.title-below:focus-visible .clickable-title {
+  transform: translateY(0);
+}
+
+.clickable.title-center.title-below:hover .clickable-title,
+.clickable.title-center.title-below:focus-visible .clickable-title {
+  transform: translate(-50%, 0);
+}
+
 .dialogue-box {
   position: relative;
   z-index: 2;
@@ -428,7 +557,9 @@ button:disabled {
 
 .speaker {
   display: block;
+  font-family: var(--pixel-font);
   font-size: 0.98rem;
+  letter-spacing: 0;
 }
 
 .dialogue-counter {
@@ -519,8 +650,13 @@ button:disabled {
 .catalog-card h2 {
   margin: 0;
   color: #ffe6a8;
-  font-size: 1.12rem;
-  line-height: 1.25;
+  font-family: var(--pixel-font);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: 0;
+  text-shadow: 2px 2px 0 rgba(7, 10, 20, 0.68);
+  text-wrap: balance;
 }
 
 .catalog-meta {
@@ -593,7 +729,9 @@ button:disabled {
 .gallery-detail .screen-title,
 .minigame-panel .screen-title {
   color: #5d3528;
-  text-shadow: none;
+  text-shadow:
+    2px 2px 0 rgba(255, 247, 223, 0.72),
+    4px 4px 0 rgba(91, 52, 40, 0.18);
 }
 
 .paper-panel .eyebrow,
@@ -615,6 +753,12 @@ button:disabled {
 .gallery-detail .screen-title,
 .gallery-detail .screen-copy {
   color: #fff7df;
+}
+
+.gallery-detail .screen-title {
+  text-shadow:
+    2px 2px 0 #8f4f6f,
+    4px 4px 0 rgba(7, 10, 20, 0.86);
 }
 
 .gallery-image {
@@ -660,7 +804,12 @@ button:disabled {
 .minigame-panel .screen-title,
 .minigame-panel .screen-copy {
   color: #fff7df;
-  text-shadow: none;
+}
+
+.minigame-panel .screen-title {
+  text-shadow:
+    2px 2px 0 #3f579d,
+    4px 4px 0 rgba(7, 10, 20, 0.86);
 }
 
 .minigame-progress,
@@ -749,8 +898,12 @@ button:disabled {
 .settings-title {
   margin: 0;
   color: var(--gold);
-  font-size: 1.25rem;
+  font-family: var(--pixel-font);
+  font-size: 1.35rem;
+  font-weight: 700;
   line-height: 1.1;
+  letter-spacing: 0;
+  text-shadow: 2px 2px 0 rgba(143, 79, 111, 0.8);
 }
 
 .settings-close {
@@ -902,7 +1055,7 @@ button:disabled {
   .scene-name {
     max-width: 46%;
     padding: 7px 9px;
-    font-size: 0.78rem;
+    font-size: 0.86rem;
   }
 
   .top-actions {

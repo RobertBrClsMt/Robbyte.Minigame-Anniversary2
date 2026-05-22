@@ -61,9 +61,17 @@
       "color": "#8bd6ff",
       "sprite": "assets/characters/robert/normal_mediocuerpo.png",
       "side": "left",
+      "spriteOffset": {
+        "x": "0",
+        "y": "20px"
+      },
       "spriteWidth": "clamp(210px, 28vw, 360px)",
       "spriteMaxHeight": "88%",
       "spriteBottom": "0",
+      "spriteMobileOffset": {
+        "x": "0",
+        "y": "0"
+      },
       "spriteMobileWidth": "clamp(170px, 52vw, 260px)",
       "spriteMobileMaxHeight": "82%",
       "spriteMobileBottom": "0"
@@ -73,9 +81,17 @@
       "color": "#ffb4cc",
       "sprite": "assets/characters/jennifer/normal.svg",
       "side": "right",
+      "spriteOffset": {
+        "x": "0",
+        "y": "0"
+      },
       "spriteWidth": "clamp(210px, 28vw, 360px)",
       "spriteMaxHeight": "88%",
       "spriteBottom": "0",
+      "spriteMobileOffset": {
+        "x": "0",
+        "y": "0"
+      },
       "spriteMobileWidth": "clamp(170px, 52vw, 260px)",
       "spriteMobileMaxHeight": "82%",
       "spriteMobileBottom": "0"
@@ -921,6 +937,7 @@
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Jennifer, preparé este lugar para que recorras nuestra historia a tu ritmo."
         },
         {
@@ -1487,7 +1504,7 @@
       "dialogues": [
         {
           "character": "narrator",
-          "text": "A veces el amor también suena raro. A veces suena como: wiwiwiwi.",
+          "text": "A veces el amor también suena raro. A veces suena como: [anim=wiggle]wiwiwiwi[/anim].",
           "important": true,
           "sfx": "message"
         },
@@ -1688,6 +1705,7 @@
         },
         {
           "character": "robert",
+          "characterAnimation": "shake",
           "text": "Pero algunos dan mucha risa después."
         }
       ]
@@ -1925,7 +1943,7 @@
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Te amo mucho, Bebé. Quiero seguir construyendo un futuro contigo, seguir mejorando juntos y seguir eligiéndote.",
+          "text": "[anim=glow]Te amo mucho, Bebé[/anim]. Quiero seguir construyendo un futuro contigo, seguir mejorando juntos y seguir eligiéndote.",
           "important": true,
           "sfx": "paper"
         },

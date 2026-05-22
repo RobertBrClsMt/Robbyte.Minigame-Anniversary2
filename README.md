@@ -63,7 +63,7 @@ Para fondos usa `background`; para sprites usa `sprite`; para objetos del hub us
 
 La historia vive en `public/content/game.json`:
 
-- `characters`: nombres, colores, sprites, tamaños y posición de sprite de Robert/Jennifer.
+- `characters`: nombres, colores, sprites, tamaños y offsets de posición de sprite de Robert/Jennifer.
 - `memories`: catálogo de los 30 recuerdos.
 - `letters`: cartas disponibles en la cajita.
 - `gallery`: fotos y placeholders.
@@ -71,6 +71,30 @@ La historia vive en `public/content/game.json`:
 - `scenes`: diálogos, fondos, música, desbloqueos y capítulos.
 
 Los nombres visibles ya están configurados como `Robert` y `Jennifer`.
+
+### Animaciones de diálogos
+
+Cada entrada de `dialogues` puede animar al personaje visible con `characterAnimation`:
+
+```json
+{
+  "character": "robert",
+  "characterAnimation": "bounce",
+  "text": "Jennifer, preparé este lugar para que recorras nuestra historia a tu ritmo."
+}
+```
+
+Opciones disponibles: `bounce`, `shake`, `nod`, `wiggle`, `pulse`, `float`.
+
+Los diálogos se escriben progresivamente. Puedes ajustar la velocidad por línea con `typingSpeed` en milisegundos por carácter. Para animar una parte del texto, usa etiquetas seguras dentro de `text`:
+
+```json
+{
+  "text": "A veces el amor también suena raro. A veces suena como: [anim=wiggle]wiwiwiwi[/anim]."
+}
+```
+
+Opciones disponibles para texto: `bounce`, `shake`, `pulse`, `wiggle`, `pop`, `glow`.
 
 ## Guardado
 

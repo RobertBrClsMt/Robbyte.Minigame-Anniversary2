@@ -1904,7 +1904,7 @@ function renderGalleryExtra() {
     card.append(
       image,
       el("h2", undefined, item.title),
-      el("p", "catalog-meta", `${item.date} Â· ${item.category}`),
+      el("p", "catalog-meta", `${item.date} · ${item.category}`),
       el("p", "catalog-copy", item.description),
       makeIconTextButton("secondary-button small-button", "image", "Ver", () => renderGalleryItem(id, "gallery_extra", "gallery_extra"), `Ver ${item.title}`),
     );

@@ -47,12 +47,17 @@ type Choice = {
   sfx?: string;
 };
 
+type CharacterAnimation = "bounce" | "shake" | "nod" | "wiggle" | "pulse" | "float";
+type TextAnimation = "bounce" | "shake" | "pulse" | "wiggle" | "pop" | "glow";
+
 type DialogueLine = {
   character?: string;
   text: string;
   sprite?: string;
   sfx?: string;
   important?: boolean;
+  characterAnimation?: CharacterAnimation;
+  typingSpeed?: number;
   actions?: Action[];
   choices?: Choice[];
 };
@@ -87,9 +92,17 @@ type Character = {
   color: string;
   sprite?: string;
   side?: "left" | "center" | "right";
+  spriteOffset?: {
+    x?: string;
+    y?: string;
+  };
   spriteWidth?: string;
   spriteMaxHeight?: string;
   spriteBottom?: string;
+  spriteMobileOffset?: {
+    x?: string;
+    y?: string;
+  };
   spriteMobileWidth?: string;
   spriteMobileMaxHeight?: string;
   spriteMobileBottom?: string;
@@ -225,6 +238,19 @@ type IconName =
   | "settings"
   | "speaker";
 
+type DialogueTextSegment = {
+  text: string;
+  animation?: TextAnimation;
+};
+
+type ActiveTyping = {
+  target: HTMLElement;
+  segments: DialogueTextSegment[];
+  visibleChars: number;
+  totalChars: number;
+  timer?: number;
+};
+
 const ICONS: Record<IconName, string> = {
   back: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>`,
   close: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>`,
@@ -245,6 +271,9 @@ const LEGACY_SAVE_KEY = "anniversary-vn-save-v1";
 const MUTE_KEY = "anniversary-vn-muted-v1";
 const MUSIC_MUTE_KEY = "anniversary-vn-music-muted-v1";
 const SFX_MUTE_KEY = "anniversary-vn-sfx-muted-v1";
+const DEFAULT_TYPING_SPEED = 22;
+const CHARACTER_ANIMATIONS = ["bounce", "shake", "nod", "wiggle", "pulse", "float"] as const;
+const TEXT_ANIMATIONS = ["bounce", "shake", "pulse", "wiggle", "pop", "glow"] as const;
 const appElement = document.querySelector<HTMLDivElement>("#app");
 
 if (!appElement) {
@@ -255,7 +284,7 @@ const app = appElement;
 
 let gameData: GameData | null = null;
 let lastLineAudioKey = "";
-let typeTimer: number | undefined;
+let activeTyping: ActiveTyping | undefined;
 let activeSettingsClose: (() => void) | undefined;
 let state: AppState = {
   screen: "menu",
@@ -685,11 +714,26 @@ function makeIconTextButton(
 
 function replaceApp(node: HTMLElement) {
   activeSettingsClose?.();
-  if (typeTimer) {
-    window.clearInterval(typeTimer);
-    typeTimer = undefined;
-  }
+  clearActiveTyping();
   app.replaceChildren(node);
+}
+
+function clearActiveTyping() {
+  if (activeTyping?.timer !== undefined) {
+    window.clearInterval(activeTyping.timer);
+  }
+  activeTyping = undefined;
+}
+
+function completeActiveTyping() {
+  if (!activeTyping) {
+    return false;
+  }
+
+  const { target, segments, totalChars } = activeTyping;
+  clearActiveTyping();
+  renderDialogueTextSegments(target, segments, totalChars);
+  return true;
 }
 
 function isPhoneDevice() {
@@ -1105,34 +1149,55 @@ function renderGame() {
   const character = characterId ? data.characters[characterId] : undefined;
   const sprite = line.sprite ?? character?.sprite;
   if (sprite) {
-    const characterImage = el("img", `character-sprite ${character?.side ?? "center"}`);
+    const characterSlot = el("div", `character-slot ${character?.side ?? "center"}`);
+    const characterImage = el("img", "character-sprite");
     characterImage.src = assetUrl(sprite);
     characterImage.alt = character?.name ?? "";
+    if (character?.spriteOffset?.x) {
+      characterSlot.style.setProperty("--character-sprite-offset-x", character.spriteOffset.x);
+    }
+    if (character?.spriteOffset?.y) {
+      characterSlot.style.setProperty("--character-sprite-offset-y", character.spriteOffset.y);
+    }
     if (character?.spriteWidth) {
-      characterImage.style.setProperty("--character-sprite-width", character.spriteWidth);
+      characterSlot.style.setProperty("--character-sprite-width", character.spriteWidth);
     }
     if (character?.spriteMaxHeight) {
-      characterImage.style.setProperty("--character-sprite-max-height", character.spriteMaxHeight);
+      characterSlot.style.setProperty("--character-sprite-max-height", character.spriteMaxHeight);
     }
     if (character?.spriteBottom) {
-      characterImage.style.setProperty("--character-sprite-bottom", character.spriteBottom);
+      characterSlot.style.setProperty("--character-sprite-bottom", character.spriteBottom);
     }
     if (character?.spriteMobileWidth) {
-      characterImage.style.setProperty("--character-sprite-mobile-width", character.spriteMobileWidth);
+      characterSlot.style.setProperty("--character-sprite-mobile-width", character.spriteMobileWidth);
     }
     if (character?.spriteMobileMaxHeight) {
-      characterImage.style.setProperty("--character-sprite-mobile-max-height", character.spriteMobileMaxHeight);
+      characterSlot.style.setProperty("--character-sprite-mobile-max-height", character.spriteMobileMaxHeight);
     }
     if (character?.spriteMobileBottom) {
-      characterImage.style.setProperty("--character-sprite-mobile-bottom", character.spriteMobileBottom);
+      characterSlot.style.setProperty("--character-sprite-mobile-bottom", character.spriteMobileBottom);
     }
-    characterLayer.append(characterImage);
+    if (character?.spriteMobileOffset?.x) {
+      characterSlot.style.setProperty("--character-sprite-mobile-offset-x", character.spriteMobileOffset.x);
+    }
+    if (character?.spriteMobileOffset?.y) {
+      characterSlot.style.setProperty("--character-sprite-mobile-offset-y", character.spriteMobileOffset.y);
+    }
+    if (isCharacterAnimation(line.characterAnimation)) {
+      characterImage.classList.add(`character-animation-${line.characterAnimation}`);
+    }
+    characterSlot.append(characterImage);
+    characterLayer.append(characterSlot);
   }
 
   const dialogue = renderDialogue(line, character);
   stage.append(topbar, objectLayer, characterLayer);
   shell.append(stage, dialogue);
   replaceApp(shell);
+  const dialogueText = dialogue.querySelector<HTMLElement>(".dialogue-text");
+  if (dialogueText) {
+    typeDialogueText(dialogueText, line);
+  }
   playLineAudio(line);
 }
 
@@ -1251,11 +1316,6 @@ function renderDialogue(line: DialogueLine, character?: Character) {
   meta.append(speaker, counter);
 
   const text = el("p", `dialogue-text${line.important ? " important-line" : ""}`);
-  if (line.important) {
-    typeImportantText(text, line.text);
-  } else {
-    text.textContent = line.text;
-  }
 
   const controls = el("div", "dialogue-controls");
   const choices = getVisibleChoices(line);
@@ -1290,19 +1350,92 @@ function renderDialogue(line: DialogueLine, character?: Character) {
   return box;
 }
 
-function typeImportantText(target: HTMLElement, text: string) {
-  let index = 0;
-  target.textContent = "";
-  typeTimer = window.setInterval(() => {
-    target.textContent = text.slice(0, index);
-    index += 1;
-    if (index > text.length) {
-      if (typeTimer) {
-        window.clearInterval(typeTimer);
-        typeTimer = undefined;
-      }
+function isCharacterAnimation(animation?: string): animation is CharacterAnimation {
+  return Boolean(animation && (CHARACTER_ANIMATIONS as readonly string[]).includes(animation));
+}
+
+function isTextAnimation(animation: string): animation is TextAnimation {
+  return (TEXT_ANIMATIONS as readonly string[]).includes(animation);
+}
+
+function shouldReduceMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function parseDialogueText(text: string) {
+  const segments: DialogueTextSegment[] = [];
+  const tagPattern = /\[anim=([a-zA-Z0-9_-]+)\]([\s\S]*?)\[\/anim\]/g;
+  let cursor = 0;
+
+  for (const match of text.matchAll(tagPattern)) {
+    const matchIndex = match.index ?? 0;
+    if (matchIndex > cursor) {
+      segments.push({ text: text.slice(cursor, matchIndex) });
     }
-  }, 20);
+
+    const animation = match[1].toLowerCase();
+    const animatedText = match[2];
+    segments.push(isTextAnimation(animation) ? { text: animatedText, animation } : { text: animatedText });
+    cursor = matchIndex + match[0].length;
+  }
+
+  if (cursor < text.length) {
+    segments.push({ text: text.slice(cursor) });
+  }
+
+  return segments.filter((segment) => segment.text.length > 0);
+}
+
+function renderDialogueTextSegments(target: HTMLElement, segments: DialogueTextSegment[], visibleChars: number) {
+  target.replaceChildren();
+  let remaining = visibleChars;
+
+  for (const segment of segments) {
+    if (remaining <= 0) {
+      break;
+    }
+
+    const visibleText = segment.text.slice(0, remaining);
+    if (segment.animation) {
+      const animated = el("span", `dialogue-text-anim dialogue-text-anim-${segment.animation}`);
+      animated.textContent = visibleText;
+      target.append(animated);
+    } else {
+      target.append(document.createTextNode(visibleText));
+    }
+    remaining -= visibleText.length;
+  }
+}
+
+function typeDialogueText(target: HTMLElement, line: DialogueLine) {
+  const segments = parseDialogueText(line.text);
+  const totalChars = segments.reduce((total, segment) => total + segment.text.length, 0);
+  const typingSpeed = Math.max(0, line.typingSpeed ?? DEFAULT_TYPING_SPEED);
+
+  if (shouldReduceMotion() || typingSpeed === 0 || totalChars === 0) {
+    renderDialogueTextSegments(target, segments, totalChars);
+    return;
+  }
+
+  renderDialogueTextSegments(target, segments, 0);
+  activeTyping = {
+    target,
+    segments,
+    visibleChars: 0,
+    totalChars,
+  };
+
+  activeTyping.timer = window.setInterval(() => {
+    if (!activeTyping) {
+      return;
+    }
+
+    activeTyping.visibleChars += 1;
+    renderDialogueTextSegments(target, segments, activeTyping.visibleChars);
+    if (activeTyping.visibleChars >= totalChars) {
+      clearActiveTyping();
+    }
+  }, typingSpeed);
 }
 
 function getVisibleChoices(line: DialogueLine) {
@@ -1312,6 +1445,10 @@ function getVisibleChoices(line: DialogueLine) {
 }
 
 function choose(choice: Choice) {
+  if (completeActiveTyping()) {
+    return;
+  }
+
   audio.playSfx(choice.sfx ?? "choice");
   const rendered = runActions(choice.actions);
   if (rendered) {
@@ -1335,6 +1472,10 @@ function choose(choice: Choice) {
 }
 
 function advanceDialogue() {
+  if (completeActiveTyping()) {
+    return;
+  }
+
   const line = getCurrentLine();
   audio.playSfx("blip");
 
@@ -2017,6 +2158,12 @@ function handleKeyboard(event: KeyboardEvent) {
     return;
   }
   if (event.key === "Enter" || event.key === " ") {
+    if (activeTyping) {
+      event.preventDefault();
+      completeActiveTyping();
+      return;
+    }
+
     const line = getCurrentLine();
     if (getVisibleChoices(line).length === 0 || state.inspection) {
       event.preventDefault();

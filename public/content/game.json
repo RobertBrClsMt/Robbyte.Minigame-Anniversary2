@@ -79,11 +79,11 @@
     "jennifer": {
       "name": "Jennifer",
       "color": "#ffb4cc",
-      "sprite": "assets/characters/jennifer/normal.svg",
+      "sprite": "assets/characters/jennifer/normal_mediocuerpo.png",
       "side": "right",
       "spriteOffset": {
         "x": "0",
-        "y": "0"
+        "y": "20px"
       },
       "spriteWidth": "clamp(210px, 28vw, 360px)",
       "spriteMaxHeight": "88%",
@@ -231,7 +231,7 @@
     },
     "cap_14": {
       "chapter": 14,
-      "title": "System of a Down y conciertos",
+      "title": "Conciertos",
       "date": "2024-2025",
       "category": "Conciertos",
       "object": "Pulsera de concierto",
@@ -477,56 +477,56 @@
       "title": "Cajita de cartas",
       "date": "2024",
       "category": "Cartas",
-      "image": "assets/photos/photo_cajita.svg",
+      "image": "assets/photos/photo_cajita.png",
       "description": "Algunas palabras no se guardan en papel. Se guardan en el pecho."
     },
     "photo_carta_250724": {
       "title": "Carta 25/07/24",
       "date": "25/07/2024",
       "category": "Cartas",
-      "image": "assets/photos/photo_carta_250724.svg",
+      "image": "assets/photos/photo_carta_250724.png",
       "description": "Hay cartas que parecen promesas de otra vida."
     },
     "photo_siddhartha": {
       "title": "Siddhartha",
       "date": "2024",
       "category": "Conciertos",
-      "image": "assets/photos/photo_siddhartha.svg",
+      "image": "assets/photos/photo_siddhartha.png",
       "description": "Verla cantar fue la parte favorita del concierto."
     },
     "photo_conciertos": {
       "title": "Conciertos juntos",
       "date": "2024-2025",
       "category": "Conciertos",
-      "image": "assets/photos/photo_conciertos.svg",
+      "image": "assets/photos/photo_conciertos.png",
       "description": "Entre luces y ruido, también aprendimos a encontrarnos."
     },
     "photo_mocca": {
       "title": "Mocca y el parque",
       "date": "2024",
       "category": "Vida cotidiana",
-      "image": "assets/photos/photo_mocca.svg",
+      "image": "assets/photos/photo_mocca.png",
       "description": "Los paseos simples también se vuelven recuerdos."
     },
     "photo_raura": {
       "title": "Raura",
       "date": "2025",
       "category": "Viajes",
-      "image": "assets/photos/photo_raura.svg",
+      "image": "assets/photos/photo_raura.png",
       "description": "Frío afuera, memoria cálida adentro."
     },
     "photo_osaka": {
       "title": "Osaka",
       "date": "25/05/2025",
       "category": "Aniversarios",
-      "image": "assets/photos/photo_osaka.svg",
+      "image": "assets/photos/photo_osaka.png",
       "description": "Una cena tranquila para celebrar lo que estaban construyendo."
     },
     "photo_aniversario_parque": {
       "title": "Parque de noche",
       "date": "25/05/2025",
       "category": "Aniversarios",
-      "image": "assets/photos/photo_aniversario_parque.svg",
+      "image": "assets/photos/photo_aniversario_parque.png",
       "description": "No sabemos el nombre del parque, pero sí lo que sentimos esa noche."
     },
     "photo_girasoles": {
@@ -540,101 +540,30 @@
       "title": "Próximo recuerdo",
       "date": "Futuro",
       "category": "Futuro",
-      "image": "assets/photos/photo_cielo_estrellado.svg",
+      "image": "assets/photos/photo_cielo_estrellado.png",
       "description": "Un marco vacío para la noche en que miren el cielo estrellado juntos."
     }
   },
   "gallery_extra": {
-    "photo_burgerfest_ticket": {
-      "title": "Ticket BurgerFest",
-      "date": "18/05/2024",
+    "parque_amistad_24-06-29": {
+      "title": "Parque de la amistad",
+      "date": "29/06/2024",
       "category": "Primeros momentos",
-      "image": "assets/photos/photo_burgerfest_ticket.svg",
-      "description": "Una invitación que parecía simple, pero abrió una historia."
+      "image": "assets/photos/photo_parque_amistad_24-06-29.png",
+      "description": "Una bonita noche que la pase contigo."
     },
-    "photo_manos": {
-      "title": "Primera foto de manos",
-      "date": "18/05/2024",
+    "teatro_241206": {
+      "title": "Teatro Nacional",
+      "date": "06/12/2024",
       "category": "Primeros momentos",
-      "image": "assets/photos/photo_manos.png",
-      "description": "Nuestra primera foto no necesitó mostrar rostros."
+      "image": "assets/photos/photo_teatro_241206.png",
+      "description": "Disfrutamos de una una historia."
     },
-    "photo_tamalito": {
-      "title": "Tamalito y rosas",
-      "date": "2024",
-      "category": "Detalles",
-      "image": "assets/photos/photo_tamalito.png",
-      "description": "Un panda, unas rosas y las ganas de verte feliz."
-    },
-    "photo_cajita": {
-      "title": "Cajita de cartas",
-      "date": "2024",
-      "category": "Cartas",
-      "image": "assets/photos/photo_cajita.svg",
-      "description": "Algunas palabras no se guardan en papel. Se guardan en el pecho."
-    },
-    "photo_carta_250724": {
-      "title": "Carta 25/07/24",
-      "date": "25/07/2024",
-      "category": "Cartas",
-      "image": "assets/photos/photo_carta_250724.svg",
-      "description": "Hay cartas que parecen promesas de otra vida."
-    },
-    "photo_siddhartha": {
-      "title": "Siddhartha",
-      "date": "2024",
-      "category": "Conciertos",
-      "image": "assets/photos/photo_siddhartha.svg",
-      "description": "Verla cantar fue la parte favorita del concierto."
-    },
-    "photo_conciertos": {
-      "title": "Conciertos juntos",
-      "date": "2024-2025",
-      "category": "Conciertos",
-      "image": "assets/photos/photo_conciertos.svg",
-      "description": "Entre luces y ruido, también aprendimos a encontrarnos."
-    },
-    "photo_mocca": {
-      "title": "Mocca y el parque",
-      "date": "2024",
-      "category": "Vida cotidiana",
-      "image": "assets/photos/photo_mocca.svg",
-      "description": "Los paseos simples también se vuelven recuerdos."
-    },
-    "photo_raura": {
-      "title": "Raura",
-      "date": "2025",
-      "category": "Viajes",
-      "image": "assets/photos/photo_raura.svg",
-      "description": "Frío afuera, memoria cálida adentro."
-    },
-    "photo_osaka": {
-      "title": "Osaka",
-      "date": "25/05/2025",
-      "category": "Aniversarios",
-      "image": "assets/photos/photo_osaka.svg",
-      "description": "Una cena tranquila para celebrar lo que estaban construyendo."
-    },
-    "photo_aniversario_parque": {
-      "title": "Parque de noche",
-      "date": "25/05/2025",
-      "category": "Aniversarios",
-      "image": "assets/photos/photo_aniversario_parque.svg",
-      "description": "No sabemos el nombre del parque, pero sí lo que sentimos esa noche."
-    },
-    "photo_girasoles": {
-      "title": "Girasoles",
-      "date": "2026",
-      "category": "Detalles",
-      "image": "assets/photos/photo_girasoles.svg",
-      "description": "Una flor que mira hacia la luz, como Jennifer."
-    },
-    "photo_cielo_estrellado": {
-      "title": "Próximo recuerdo",
-      "date": "Futuro",
-      "category": "Futuro",
-      "image": "assets/photos/photo_cielo_estrellado.svg",
-      "description": "Un marco vacío para la noche en que miren el cielo estrellado juntos."
+    "comida_juntos": {
+      "title": "Comida juntos",
+      "category": "Primeros momentos",
+      "image": "assets/photos/photo_comida_juntos.png",
+      "description": "Disfrutamos de una cena hecha por nosotros."
     }
   },
   "minigames": {
@@ -1074,7 +1003,7 @@
     },
     "cap_01_secundaria": {
       "name": "2016 - Compañeros de secundaria",
-      "background": "assets/backgrounds/bg_01_secundaria.svg",
+      "background": "assets/backgrounds/bg_01_secundaria.png",
       "music": "school",
       "chapter": 1,
       "memoryId": "cap_01",
@@ -1101,7 +1030,7 @@
     },
     "cap_02_invitacion": {
       "name": "2024 - La invitación",
-      "background": "assets/backgrounds/bg_02_invitacion.svg",
+      "background": "assets/backgrounds/bg_02_invitacion.png",
       "music": "chat",
       "chapter": 2,
       "memoryId": "cap_02",
@@ -1129,7 +1058,7 @@
     },
     "cap_03_burgerfest": {
       "name": "18 de mayo - BurgerFest",
-      "background": "assets/backgrounds/bg_03_burgerfest.svg",
+      "background": "assets/backgrounds/bg_03_burgerfest.png",
       "music": "fair",
       "chapter": 3,
       "memoryId": "cap_03",
@@ -1161,7 +1090,7 @@
     },
     "cap_04_banca_beso": {
       "name": "La banca y el primer beso",
-      "background": "assets/backgrounds/bg_04_banca_beso.svg",
+      "background": "assets/backgrounds/bg_04_banca_beso.png",
       "music": "kiss",
       "chapter": 4,
       "memoryId": "cap_04",
@@ -1188,7 +1117,7 @@
     },
     "cap_05_manos": {
       "name": "Primera foto - Nuestras manos",
-      "background": "assets/backgrounds/bg_05_manos.svg",
+      "background": "assets/backgrounds/bg_05_manos.png",
       "music": "kiss",
       "chapter": 5,
       "memoryId": "cap_05",
@@ -1221,7 +1150,7 @@
     },
     "cap_06_25_mayo": {
       "name": "25 de mayo - Oficialmente nosotros",
-      "background": "assets/backgrounds/bg_06_25_mayo.svg",
+      "background": "assets/backgrounds/bg_06_25_mayo.png",
       "music": "kiss",
       "chapter": 6,
       "memoryId": "cap_06",
@@ -1274,7 +1203,7 @@
     },
     "cap_08_tamalito_rosas": {
       "name": "Tamalito y las rosas",
-      "background": "assets/photos/photo_tamalito.png",
+      "background": "assets/backgrounds/bg_08_tamalito_rosas.png",
       "music": "fair",
       "chapter": 8,
       "memoryId": "cap_08",
@@ -1431,7 +1360,7 @@
     },
     "cap_13_siddhartha": {
       "name": "Siddhartha",
-      "background": "assets/backgrounds/bg_13_siddhartha.svg",
+      "background": "assets/backgrounds/bg_13_siddhartha.png",
       "music": "concert",
       "chapter": 13,
       "memoryId": "cap_13",
@@ -1461,8 +1390,8 @@
       ]
     },
     "cap_14_conciertos": {
-      "name": "System of a Down y conciertos",
-      "background": "assets/backgrounds/bg_14_conciertos.svg",
+      "name": "Conciertos",
+      "background": "assets/backgrounds/bg_14_conciertos.png",
       "music": "concert",
       "chapter": 14,
       "memoryId": "cap_14",
@@ -1625,7 +1554,7 @@
     },
     "cap_20_mocca_parque": {
       "name": "Mocca y el parque",
-      "background": "assets/backgrounds/bg_20_mocca_parque.svg",
+      "background": "assets/photos/photo_mocca.png",
       "music": "park",
       "chapter": 20,
       "memoryId": "cap_20",
@@ -1657,7 +1586,7 @@
     },
     "cap_21_dormir_juntos": {
       "name": "Dormir juntos",
-      "background": "assets/backgrounds/bg_21_dormir_juntos.svg",
+      "background": "assets/backgrounds/bg_21_dormir_juntos.png",
       "music": "calm",
       "chapter": 21,
       "memoryId": "cap_21",
@@ -1683,7 +1612,7 @@
     },
     "cap_22_jacuzzi": {
       "name": "El jacuzzi",
-      "background": "assets/backgrounds/bg_22_jacuzzi.svg",
+      "background": "assets/backgrounds/bg_22_jacuzzi.png",
       "music": "comedy",
       "chapter": 22,
       "memoryId": "cap_22",
@@ -1695,12 +1624,13 @@
       "dialogues": [
         {
           "character": "narrator",
-          "text": "También tenemos recuerdos desastrosos. Como esa vez que no supimos usar el jacuzzi y casi convertimos la habitación en una piscina.",
+          "text": "También tenemos recuerdos desastrosos. Como esa vez que no supimos usar el jacuzzi y casi convertimos la habitación en una [anim=wiggle]piscina[/anim].",
           "important": true,
           "sfx": "water"
         },
         {
           "character": "jennifer",
+          "characterAnimation": "shake",
           "text": "No todos los recuerdos son elegantes."
         },
         {
@@ -1712,7 +1642,7 @@
     },
     "cap_23_raura": {
       "name": "Raura",
-      "background": "assets/backgrounds/bg_23_raura.svg",
+      "background": "assets/backgrounds/bg_23_raura.png",
       "music": "mountain",
       "chapter": 23,
       "memoryId": "cap_23",
@@ -1744,7 +1674,7 @@
     },
     "cap_24_osaka": {
       "name": "Osaka",
-      "background": "assets/backgrounds/bg_24_osaka.svg",
+      "background": "assets/backgrounds/bg_24_osaka.png",
       "music": "restaurant",
       "chapter": 24,
       "memoryId": "cap_24",
@@ -1776,7 +1706,7 @@
     },
     "cap_25_foto_noche": {
       "name": "La foto de noche",
-      "background": "assets/backgrounds/bg_25_foto_noche.svg",
+      "background": "assets/backgrounds/bg_25_foto_noche.png",
       "music": "stars",
       "chapter": 25,
       "memoryId": "cap_25",
@@ -1787,12 +1717,12 @@
           "photo_aniversario_parque"
         ]
       },
-      "completionTitle": "Foto real preparada",
-      "completionText": "El parque sin nombre queda listo para reemplazar el placeholder por la foto real.",
+      "completionTitle": "Parque Roosevelt desbloqueado",
+      "completionText": "Parque Roosevelt",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "No sabemos cómo se llamaba ese parque. Tal vez eso lo hace más nuestro. No necesitaba nombre para guardar una noche que sí recuerdo.",
+          "text": "Ese parque Parque Roosevelt. Tal vez eso lo hace más nuestro. No necesitaba nombre para guardar una noche que sí recuerdo.",
           "important": true,
           "sfx": "camera"
         },

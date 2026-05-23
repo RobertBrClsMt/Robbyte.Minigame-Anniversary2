@@ -456,7 +456,7 @@
       "title": "Ticket BurgerFest",
       "date": "18/05/2024",
       "category": "Primeros momentos",
-      "image": "assets/photos/photo_burgerfest_ticket.svg",
+      "image": "assets/photos/photo_burgerfest_ticket.png",
       "description": "Una invitación que parecía simple, pero abrió una historia."
     },
     "photo_manos": {
@@ -533,7 +533,7 @@
       "title": "Girasoles",
       "date": "2026",
       "category": "Detalles",
-      "image": "assets/photos/photo_girasoles.svg",
+      "image": "assets/photos/photo_girasoles.png",
       "description": "Una flor que mira hacia la luz, como Jennifer."
     },
     "photo_cielo_estrellado": {
@@ -561,9 +561,24 @@
     },
     "comida_juntos": {
       "title": "Comida juntos",
+      "date": "28/02/2025",
       "category": "Primeros momentos",
       "image": "assets/photos/photo_comida_juntos.png",
       "description": "Disfrutamos de una cena hecha por nosotros."
+    },
+    "tickets": {
+      "title": "Tickets",
+      "date": "",
+      "category": "Primeros momentos",
+      "image": "assets/photos/photo_tickets.png",
+      "description": "Algunos tickets que nos llevaron a varios lugares."
+    },
+    "nombre_japones": {
+      "title": "Nuestros nombres en japonés",
+      "date": "",
+      "category": "Primeros momentos",
+      "image": "assets/photos/photo_nombres_japones.png",
+      "description": "Los nombres que nos dieron en el país del sol naciente."
     }
   },
   "minigames": {
@@ -1176,7 +1191,7 @@
     },
     "cap_07_bebe": {
       "name": "Bebé",
-      "background": "assets/backgrounds/bg_07_bebe.svg",
+      "background": "assets/backgrounds/bg_07_bebe.png",
       "music": "playful",
       "chapter": 7,
       "memoryId": "cap_07",
@@ -1234,7 +1249,7 @@
     },
     "cap_09_cajita_cartas": {
       "name": "La cajita de cartas",
-      "background": "assets/backgrounds/bg_09_cajita_cartas.svg",
+      "background": "assets/backgrounds/bg_09_cajita_cartas.png",
       "music": "letters",
       "chapter": 9,
       "memoryId": "cap_09",
@@ -1266,7 +1281,7 @@
     },
     "cap_10_otra_vida": {
       "name": "Otra vida",
-      "background": "assets/backgrounds/bg_10_otra_vida.svg",
+      "background": "assets/backgrounds/bg_10_otra_vida.png",
       "music": "otherlife",
       "chapter": 10,
       "memoryId": "cap_10",
@@ -1302,7 +1317,7 @@
     },
     "cap_11_impacto": {
       "name": "Impacto",
-      "background": "assets/backgrounds/bg_11_impacto.svg",
+      "background": "assets/backgrounds/bg_11_impacto.png",
       "music": "rock",
       "chapter": 11,
       "memoryId": "cap_11",
@@ -1329,7 +1344,7 @@
     },
     "cap_12_paraiso_lunar": {
       "name": "Paraíso Lunar",
-      "background": "assets/backgrounds/bg_12_paraiso_lunar.svg",
+      "background": "assets/backgrounds/bg_12_paraiso_lunar.png",
       "music": "lunar",
       "chapter": 12,
       "memoryId": "cap_12",
@@ -1422,7 +1437,7 @@
     },
     "cap_15_wiwiwiwi": {
       "name": "Wiwiwiwi",
-      "background": "assets/backgrounds/bg_15_wiwiwiwi.svg",
+      "background": "assets/backgrounds/bg_15_wiwiwiwi.png",
       "music": "playful",
       "chapter": 15,
       "memoryId": "cap_15",
@@ -1433,7 +1448,7 @@
       "dialogues": [
         {
           "character": "narrator",
-          "text": "A veces el amor también suena raro. A veces suena como: [anim=wiggle]wiwiwiwi[/anim].",
+          "text": "A veces el amor también suena raro. A veces suena como: [anim=wiggle]wiwiwiwi[/anim]. la empezamos a usar casi cumpliendo un año y se volvió nuestro idioma secreto.",
           "important": true,
           "sfx": "message"
         },
@@ -1449,7 +1464,7 @@
     },
     "cap_16_quesito": {
       "name": "Quesito",
-      "background": "assets/backgrounds/bg_16_quesito.svg",
+      "background": "assets/backgrounds/bg_16_quesito.png",
       "music": "playful",
       "chapter": 16,
       "memoryId": "cap_16",
@@ -1475,7 +1490,7 @@
     },
     "cap_17_salado_dulce": {
       "name": "Salado y dulce",
-      "background": "assets/backgrounds/bg_17_salado_dulce.svg",
+      "background": "assets/backgrounds/bg_17_salado_dulce.png",
       "music": "kitchen",
       "chapter": 17,
       "memoryId": "cap_17",
@@ -1502,7 +1517,7 @@
     },
     "cap_18_lectura": {
       "name": "Ella lee, yo escucho",
-      "background": "assets/backgrounds/bg_18_lectura.svg",
+      "background": "assets/backgrounds/bg_18_lectura.png",
       "music": "reading",
       "chapter": 18,
       "memoryId": "cap_18",
@@ -1528,7 +1543,7 @@
     },
     "cap_19_orgullo_prejuicio": {
       "name": "Orgullo y prejuicio",
-      "background": "assets/backgrounds/bg_19_orgullo_prejuicio.svg",
+      "background": "assets/backgrounds/bg_19_orgullo_prejuicio.png",
       "music": "reading",
       "chapter": 19,
       "memoryId": "cap_19",
@@ -1554,7 +1569,7 @@
     },
     "cap_20_mocca_parque": {
       "name": "Mocca y el parque",
-      "background": "assets/photos/photo_mocca.png",
+      "background": "assets/backgrounds/bg_20_mocca_parque.png",
       "music": "park",
       "chapter": 20,
       "memoryId": "cap_20",
@@ -1738,7 +1753,7 @@
     },
     "cap_26_dificil": {
       "name": "Lo difícil también cuenta",
-      "background": "assets/backgrounds/bg_26_dificil.svg",
+      "background": "assets/backgrounds/bg_26_dificil.png",
       "music": "rain",
       "chapter": 26,
       "memoryId": "cap_26",
@@ -1765,7 +1780,7 @@
     },
     "cap_27_llamadas": {
       "name": "Llamadas de la mañana",
-      "background": "assets/backgrounds/bg_27_llamadas.svg",
+      "background": "assets/backgrounds/bg_27_llamadas.png",
       "music": "morning",
       "chapter": 27,
       "memoryId": "cap_27",
@@ -1792,7 +1807,7 @@
     },
     "cap_28_girasoles": {
       "name": "Girasoles",
-      "background": "assets/backgrounds/bg_28_girasoles.svg",
+      "background": "assets/backgrounds/bg_28_girasoles.png",
       "music": "final",
       "chapter": 28,
       "memoryId": "cap_28",
@@ -1824,7 +1839,7 @@
     },
     "cap_29_cielo_estrellado": {
       "name": "Bajo el cielo estrellado",
-      "background": "assets/backgrounds/bg_29_cielo_estrellado.svg",
+      "background": "assets/backgrounds/bg_29_cielo_estrellado.png",
       "music": "stars",
       "chapter": 29,
       "memoryId": "cap_29",

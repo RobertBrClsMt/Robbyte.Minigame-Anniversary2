@@ -201,12 +201,12 @@
     },
     "cap_11": {
       "chapter": 11,
-      "title": "Impacto",
+      "title": "Vínculo",
       "date": "2024",
       "category": "Música",
       "object": "Reproductor musical",
-      "word": "Impacto",
-      "scene": "cap_11_impacto",
+      "word": "Vínculo",
+      "scene": "cap_11_vinculo",
       "description": "Una canción se volvió una forma de recordar cómo llegó Jennifer."
     },
     "cap_12": {
@@ -674,8 +674,8 @@
       "successText": "Nuestra historia también tiene banda sonora.",
       "items": [
         {
-          "id": "impacto",
-          "label": "Impacto"
+          "id": "vinculo",
+          "label": "Vínculo"
         },
         {
           "id": "lunar",
@@ -1287,7 +1287,7 @@
       "memoryId": "cap_10",
       "word": "Siempre",
       "minigameId": "mg_otra_vida",
-      "nextScene": "cap_11_impacto",
+      "nextScene": "cap_11_vinculo",
       "unlocks": {
         "gallery": [
           "photo_carta_250724"
@@ -1315,21 +1315,21 @@
         }
       ]
     },
-    "cap_11_impacto": {
-      "name": "Impacto",
-      "background": "assets/backgrounds/bg_11_impacto.png",
+    "cap_11_vinculo": {
+      "name": "Vínculo",
+      "background": "assets/backgrounds/bg_11_vinculo.png",
       "music": "rock",
       "chapter": 11,
       "memoryId": "cap_11",
-      "word": "Impacto",
+      "word": "Vínculo",
       "minigameId": "mg_playlist",
       "nextScene": "cap_12_paraiso_lunar",
-      "completionTitle": "Canción desbloqueada - Impacto",
-      "completionText": "Impacto queda como una forma de recordar cómo Jennifer llegó a la vida de Robert.",
+      "completionTitle": "Canción desbloqueada - Vínculo",
+      "completionText": "Vínculo queda como una forma de recordar cómo Jennifer llegó a la vida de Robert.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Impacto no es solo una canción. Es una forma de recordar cómo llegaste a mi vida y moviste algo que yo no sabía explicar.",
+          "text": "Vínculo no es solo una canción. Es una forma de recordar cómo llegaste a mi vida y moviste algo que yo no sabía explicar.",
           "important": true
         },
         {
@@ -1872,7 +1872,7 @@
     },
     "cap_30_carta_final": {
       "name": "Carta final",
-      "background": "assets/backgrounds/bg_30_carta_final.svg",
+      "background": "assets/backgrounds/bg_30_carta_final.png",
       "music": "final",
       "chapter": 30,
       "memoryId": "cap_30",

@@ -80,7 +80,7 @@ Cada entrada de `dialogues` puede animar al personaje visible con `characterAnim
 {
   "character": "robert",
   "characterAnimation": "bounce",
-  "text": "Jennifer, preparé este lugar para que recorras nuestra historia a tu ritmo."
+  "text": "Mi amor, preparé este lugar para que recorras nuestra historia a tu ritmo."
 }
 ```
 

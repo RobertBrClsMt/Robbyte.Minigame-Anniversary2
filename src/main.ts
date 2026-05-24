@@ -249,6 +249,7 @@ type ActiveTyping = {
   visibleChars: number;
   totalChars: number;
   timer?: number;
+  onComplete?: () => void;
 };
 
 const ICONS: Record<IconName, string> = {
@@ -730,9 +731,10 @@ function completeActiveTyping() {
     return false;
   }
 
-  const { target, segments, totalChars } = activeTyping;
+  const { target, segments, totalChars, onComplete } = activeTyping;
   clearActiveTyping();
   renderDialogueTextSegments(target, segments, totalChars);
+  onComplete?.();
   return true;
 }
 
@@ -1097,7 +1099,7 @@ function renderMenu() {
   const subtitle = el(
     "p",
     "menu-subtitle",
-    data.subtitle ?? "Algunos recuerdos no se cuentan. Se recorren.",
+    data.subtitle ?? "subtitle",
   );
   const actions = el("div", "menu-actions");
   const hasSave = Boolean(loadSave());
@@ -1148,9 +1150,10 @@ function renderGame() {
   const characterId = line.character;
   const character = characterId ? data.characters[characterId] : undefined;
   const sprite = line.sprite ?? character?.sprite;
+  let characterImage: HTMLImageElement | undefined;
   if (sprite) {
     const characterSlot = el("div", `character-slot ${character?.side ?? "center"}`);
-    const characterImage = el("img", "character-sprite");
+    characterImage = el("img", "character-sprite");
     characterImage.src = assetUrl(sprite);
     characterImage.alt = character?.name ?? "";
     if (character?.spriteOffset?.x) {
@@ -1196,7 +1199,7 @@ function renderGame() {
   replaceApp(shell);
   const dialogueText = dialogue.querySelector<HTMLElement>(".dialogue-text");
   if (dialogueText) {
-    typeDialogueText(dialogueText, line);
+    typeDialogueText(dialogueText, line, characterImage);
   }
   playLineAudio(line);
 }
@@ -1407,14 +1410,22 @@ function renderDialogueTextSegments(target: HTMLElement, segments: DialogueTextS
   }
 }
 
-function typeDialogueText(target: HTMLElement, line: DialogueLine) {
+function typeDialogueText(target: HTMLElement, line: DialogueLine, characterImage?: HTMLElement) {
   const segments = parseDialogueText(line.text);
   const totalChars = segments.reduce((total, segment) => total + segment.text.length, 0);
   const typingSpeed = Math.max(0, line.typingSpeed ?? DEFAULT_TYPING_SPEED);
+  const reduceMotion = shouldReduceMotion();
 
-  if (shouldReduceMotion() || typingSpeed === 0 || totalChars === 0) {
+  if (reduceMotion || typingSpeed === 0 || totalChars === 0) {
     renderDialogueTextSegments(target, segments, totalChars);
     return;
+  }
+
+  let stopCharacterTypingAnimation: (() => void) | undefined;
+  if (characterImage && isCharacterAnimation(line.characterAnimation)) {
+    const animatedCharacter = characterImage;
+    animatedCharacter.classList.add("character-animation-typing");
+    stopCharacterTypingAnimation = () => animatedCharacter.classList.remove("character-animation-typing");
   }
 
   renderDialogueTextSegments(target, segments, 0);
@@ -1423,6 +1434,7 @@ function typeDialogueText(target: HTMLElement, line: DialogueLine) {
     segments,
     visibleChars: 0,
     totalChars,
+    onComplete: stopCharacterTypingAnimation,
   };
 
   activeTyping.timer = window.setInterval(() => {
@@ -1433,7 +1445,7 @@ function typeDialogueText(target: HTMLElement, line: DialogueLine) {
     activeTyping.visibleChars += 1;
     renderDialogueTextSegments(target, segments, activeTyping.visibleChars);
     if (activeTyping.visibleChars >= totalChars) {
-      clearActiveTyping();
+      completeActiveTyping();
     }
   }, typingSpeed);
 }
@@ -1893,7 +1905,7 @@ function renderGalleryExtra() {
   state.screen = "gallery_extra";
   audio.playMusic("hub");
 
-  const screen = renderCatalogShell("Galeria extra", "Fotos extra guardadas en este cajon de recuerdos.");
+  const screen = renderCatalogShell("Galeria extra", "Fotos extra guardadas en este cajón de recuerdos.");
   const grid = el("div", "catalog-grid gallery-grid");
 
   for (const [id, item] of Object.entries(getGalleryCollection("gallery_extra"))) {
@@ -1926,7 +1938,7 @@ function renderGalleryExtraLockedNotice() {
 
   const panel = el("section", "unlock-panel");
   panel.append(
-    el("h1", "screen-title", "Cajon bloqueado"),
+    el("h1", "screen-title", "Cajón bloqueado"),
     el(
       "p",
       "screen-copy",

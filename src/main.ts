@@ -37,8 +37,12 @@ type Action =
   | { type: "showScreen"; screen: Exclude<Screen, "game" | "minigame"> }
   | { type: "completeChapter" };
 
+const CHOICE_STYLES = ["primary", "secondary", "info", "alert", "warn", "error"] as const;
+type ChoiceStyle = (typeof CHOICE_STYLES)[number];
+
 type Choice = {
   label: string;
+  style?: ChoiceStyle;
   goToScene?: string;
   dialogueIndex?: number;
   requiresFlags?: string[];
@@ -112,6 +116,7 @@ type Scene = {
   name: string;
   background: string;
   music?: string;
+  musicVolume?: number;
   hub?: boolean;
   chapter?: number;
   memoryId?: string;
@@ -305,6 +310,7 @@ class AudioManager {
   private musicTimer?: number;
   private htmlMusic?: HTMLAudioElement;
   private currentMusic?: string;
+  private currentMusicVolume = 1;
   private sfxCache = new Map<string, HTMLAudioElement>();
   private activeObjectSfx?: HTMLAudioElement;
   private activeObjectSfxStop?: () => void;
@@ -327,8 +333,9 @@ class AudioManager {
 
     if (this.currentMusic) {
       const music = this.currentMusic;
+      const volume = this.currentMusicVolume;
       this.currentMusic = undefined;
-      this.playMusic(music);
+      this.playMusic(music, volume);
     }
   }
 
@@ -336,8 +343,10 @@ class AudioManager {
     this.sfxMuted = muted;
   }
 
-  playMusic(key?: string) {
+  playMusic(key?: string, volume = 1) {
+    const volumeMultiplier = this.normalizeVolume(volume);
     this.currentMusic = key;
+    this.currentMusicVolume = volumeMultiplier;
     this.stopMusic(false);
 
     if (!key || this.musicMuted) {
@@ -346,13 +355,13 @@ class AudioManager {
 
     const source = this.data?.music?.[key] ?? key;
     if (source.startsWith("procedural:")) {
-      this.startProceduralLoop(source.replace("procedural:", ""));
+      this.startProceduralLoop(source.replace("procedural:", ""), volumeMultiplier);
       return;
     }
 
     const audio = new Audio(assetUrl(source));
     audio.loop = true;
-    audio.volume = 0.34;
+    audio.volume = 0.34 * volumeMultiplier;
     audio.play().catch(() => undefined);
     this.htmlMusic = audio;
   }
@@ -469,7 +478,7 @@ class AudioManager {
     }
   }
 
-  private startProceduralLoop(variant: string) {
+  private startProceduralLoop(variant: string, volume = 1) {
     const progressions: Record<string, number[]> = {
       menu: [392, 493.88, 587.33, 659.25],
       hub: [349.23, 440, 523.25, 659.25],
@@ -499,9 +508,9 @@ class AudioManager {
     let step = 0;
 
     this.musicTimer = window.setInterval(() => {
-      this.playTone(notes[step % notes.length], 0.22, 0.038, "triangle");
+      this.playTone(notes[step % notes.length], 0.22, 0.038 * volume, "triangle");
       if (step % 4 === 0) {
-        this.playTone(notes[0] / 2, 0.58, 0.026, "sine");
+        this.playTone(notes[0] / 2, 0.58, 0.026 * volume, "sine");
       }
       step += 1;
     }, 500);
@@ -711,6 +720,13 @@ function makeIconTextButton(
   button.append(makeIcon(icon), el("span", "button-label", text));
   button.addEventListener("click", onClick);
   return button;
+}
+
+function getChoiceStyleClass(choice: Choice) {
+  const style = choice.style && (CHOICE_STYLES as readonly string[]).includes(choice.style)
+    ? choice.style
+    : "primary";
+  return `choice-button choice-button-${style}`;
 }
 
 function replaceApp(node: HTMLElement) {
@@ -1006,7 +1022,7 @@ function enterScene(sceneId: string, dialogueIndex = 0) {
   state.inspection = undefined;
   state.activeMinigame = undefined;
   lastLineAudioKey = "";
-  audio.playMusic(scene.music);
+  audio.playMusic(scene.music, scene.musicVolume);
   saveGame();
   renderGame();
 }
@@ -1326,7 +1342,10 @@ function renderDialogue(line: DialogueLine, character?: Character) {
   if (choices.length > 0 && !state.inspection) {
     const choicesWrap = el("div", "choices");
     for (const choice of choices) {
-      const choiceButton = el("button", "choice-button", choice.label);
+      const choiceButton = el("button", getChoiceStyleClass(choice), choice.label);
+      choiceButton.type = "button";
+      choiceButton.title = choice.label;
+      choiceButton.setAttribute("aria-label", choice.label);
       choiceButton.addEventListener("click", () => choose(choice));
       choicesWrap.append(choiceButton);
     }

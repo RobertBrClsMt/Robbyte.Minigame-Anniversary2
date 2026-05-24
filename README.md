@@ -72,6 +72,23 @@ La historia vive en `public/content/game.json`:
 
 Los nombres visibles ya están configurados como `Robert` y `Jennifer`.
 
+### Estilos de choices
+
+Cada opción de `choices` puede definir `style` para cambiar el color del botón sin cambiar su comportamiento:
+
+```json
+{
+  "label": "Ver el siguiente recuerdo",
+  "style": "primary",
+  "actions": [
+    { "type": "goToNextChapter" }
+  ]
+}
+```
+
+Opciones disponibles: `primary`, `secondary`, `info`, `alert`, `warn`, `error`.
+Si no defines `style`, se usa `primary`.
+
 ### Animaciones de diálogos
 
 Cada entrada de `dialogues` puede animar al personaje visible con `characterAnimation`:

@@ -1027,6 +1027,10 @@ function enterScene(sceneId: string, dialogueIndex = 0) {
   renderGame();
 }
 
+function restartCurrentScene() {
+  enterScene(state.sceneId, 0);
+}
+
 function enterNextChapter() {
   const nextMemory = getNextChapterMemory();
   if (nextMemory) {
@@ -1228,6 +1232,7 @@ function renderTopbar(scene: Scene) {
     topActions.append(makeIconButton("icon-button", "back", "Habitación", () => enterScene(getData().startScene)));
   }
   topActions.append(
+    makeIconButton("icon-button", "reset", "Reiniciar capítulo", restartCurrentScene),
     makeIconButton("icon-button", "settings", "Opciones", renderOptions),
     makeIconButton("icon-button", "home", "Menú", renderMenu),
   );
@@ -1800,7 +1805,7 @@ function renderMemories() {
   state.screen = "memories";
   audio.playMusic("hub");
 
-  const screen = renderCatalogShell("Recuerdos", "Entre inicio, manos, cartas, música, calma, confianza, futuro y estrellas, todo me lleva a elegirte.");
+  const screen = renderCatalogShell("Recuerdos", "Aqui estan los recuerdos y momentos más especiales que tengo contigo amor.");
   const grid = el("div", "catalog-grid memory-grid");
 
   for (const [id, memory] of getSortedMemories()) {
@@ -1830,7 +1835,7 @@ function renderLetters() {
   state.screen = "letters";
   audio.playMusic("letters");
 
-  const screen = renderCatalogShell("Cartas", "Papel beige, sonidos suaves y palabras que se quedan.");
+  const screen = renderCatalogShell("Cartas", "Pequeñas cartas que desbloqueaste mientras recorrias los recuerdos.");
   const grid = el("div", "catalog-grid");
 
   for (const [id, letter] of Object.entries(getData().letters)) {
@@ -1890,7 +1895,7 @@ function renderGallery(gallery: GalleryScreen = "gallery") {
   state.screen = gallery;
   audio.playMusic("hub");
 
-  const screen = renderCatalogShell("Galería", "Fotos reales y espacios temporales para cambiarlos luego por PNG o JPG.");
+  const screen = renderCatalogShell("Galería", "Fotos y momentos que desbloqueaste mientras recorrias los recuerdos.");
   const grid = el("div", "catalog-grid gallery-grid");
 
   for (const [id, item] of Object.entries(getData().gallery)) {
@@ -1924,7 +1929,7 @@ function renderGalleryExtra() {
   state.screen = "gallery_extra";
   audio.playMusic("hub");
 
-  const screen = renderCatalogShell("Galeria extra", "Fotos extra guardadas en este cajón de recuerdos.");
+  const screen = renderCatalogShell("Galeria extra", "Fotos extras de momentos y cosas que faltaron mencionar, pero son importantes.");
   const grid = el("div", "catalog-grid gallery-grid");
 
   for (const [id, item] of Object.entries(getGalleryCollection("gallery_extra"))) {
@@ -2125,7 +2130,7 @@ function renderCredits() {
   audio.playMusic("final");
   const screen = el("main", "credits-screen");
   const panel = el("section", "credits-panel");
-  panel.append(el("p", "eyebrow", "Créditos"), el("h1", "screen-title", "Todavía nos faltan cielos por mirar juntos"));
+  panel.append(el("p", "eyebrow", ""), el("h1", "screen-title", "GRACIAS POR JUGAR AMOR ♥"));
   for (const line of getData().credits) {
     panel.append(el("p", "screen-copy", line));
   }

@@ -211,10 +211,30 @@ select {
 }
 
 .choice-button {
-  width: min(100%, 440px);
-  padding: 10px 14px;
-  background: linear-gradient(180deg, #7778df, var(--violet));
-  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  padding: 8px 18px;
+  border: 3px solid #ffe6a8;
+  border-radius: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 46%),
+    #182035;
+  color: #fff1b8;
+  line-height: 1.1;
+  text-align: center;
+  text-shadow: 2px 2px 0 rgba(93, 54, 112, 0.84);
+  box-shadow:
+    0 0 0 2px #050712,
+    inset 0 0 0 2px rgba(255, 255, 255, 0.08),
+    inset -4px -4px 0 rgba(0, 0, 0, 0.42),
+    inset 4px 4px 0 rgba(255, 255, 255, 0.08),
+    4px 4px 0 rgba(0, 0, 0, 0.45);
+  overflow-wrap: anywhere;
 }
 
 .icon-button {
@@ -406,6 +426,10 @@ select {
 
 .character-animation-float {
   animation: character-float 1.35s ease-in-out infinite alternate;
+}
+
+.character-animation-typing {
+  animation-iteration-count: infinite;
 }
 
 .clickable {
@@ -622,23 +646,23 @@ select {
 }
 
 .dialogue-text-anim-bounce {
-  animation: dialogue-text-bounce 720ms ease-in-out 2;
+  animation: dialogue-text-bounce 720ms ease-in-out infinite;
 }
 
 .dialogue-text-anim-shake {
-  animation: dialogue-text-shake 480ms ease-in-out 2;
+  animation: dialogue-text-shake 480ms ease-in-out infinite;
 }
 
 .dialogue-text-anim-pulse {
-  animation: dialogue-text-pulse 820ms ease-in-out 2;
+  animation: dialogue-text-pulse 820ms ease-in-out infinite;
 }
 
 .dialogue-text-anim-wiggle {
-  animation: dialogue-text-wiggle 620ms ease-in-out 2;
+  animation: dialogue-text-wiggle 620ms ease-in-out infinite;
 }
 
 .dialogue-text-anim-pop {
-  animation: dialogue-text-pop 420ms ease-out 1;
+  animation: dialogue-text-pop 420ms ease-out infinite alternate;
 }
 
 .dialogue-text-anim-glow {
@@ -1364,9 +1388,12 @@ select {
 
   .primary-button,
   .secondary-button,
-  .ghost-button,
-  .choice-button {
+  .ghost-button {
     width: 100%;
+  }
+
+  .choice-button {
+    max-width: 100%;
   }
 
   .icon-only,

@@ -27,7 +27,10 @@
       "morning": "procedural:morning",
       "stars": "procedural:stars",
       "final": "procedural:final",
-      "vinculo": "assets/audio/music/music_vinculo-enjambre-instrumental.mp3"
+      "vinculo": "assets/audio/music/music_vinculo-enjambre-instrumental.mp3",
+      "paraiso_lunar": "assets/audio/music/music_paraiso-lunar-siddhartha-instrumental.mp3",
+      "como_querernos": "assets/audio/music/music_como-querernos-siddhartha-instrumental.mp3",
+      "pride_and_prejudice": "assets/audio/music/music_pride-and-prejudice-dawn-official-soundtrack.mp3"
     },
     "sfx": {
       "blip": "procedural:blip",
@@ -392,10 +395,10 @@
     },
     "cap_30": {
       "chapter": 30,
-      "title": "Carta final",
+      "title": "Carta Final",
       "date": "Segundo aniversario",
       "category": "Cartas",
-      "object": "Carta final",
+      "object": "Carta Final",
       "word": "Elegirte",
       "scene": "cap_30_carta_final",
       "description": "La promesa completa: seguir intentando, creciendo y eligiéndola."
@@ -434,7 +437,7 @@
       ]
     },
     "carta_final": {
-      "title": "Carta final",
+      "title": "Carta Final",
       "date": "Segundo aniversario",
       "description": "Mensaje completo de aniversario.",
       "paragraphs": [
@@ -696,15 +699,15 @@
       "items": [
         {
           "id": "salado",
-          "label": "Algo salado para Jennifer"
+          "label": "Algo salado para ti"
         },
         {
           "id": "dulce",
-          "label": "Algo dulce para Robert"
+          "label": "Algo dulce para mí"
         },
         {
           "id": "mesa",
-          "label": "Compartir la mesa"
+          "label": "Compartir la misma mesa"
         }
       ]
     },
@@ -721,6 +724,10 @@
         {
           "id": "huella_2",
           "label": "Huellita 2"
+        },
+        {
+          "id": "huella_3",
+          "label": "Huellita 3"
         },
         {
           "id": "banca",
@@ -740,7 +747,7 @@
         },
         {
           "id": "toalla",
-          "label": "Buscar toallas"
+          "label": "Buscar papel para secar"
         },
         {
           "id": "reir",
@@ -863,10 +870,12 @@
     }
   },
   "credits": [
-    "Hecho con amor para Jennifer.",
-    "Por estos dos años, por los que vienen, y por todas las vidas en las que Robert volvería a buscarte.",
-    "Gracias por leerme, escucharme, cuidarme y quedarte.",
-    "Frase final: Todavía nos faltan cielos por mirar juntos."
+    "Hecho con amor para mi cuchurrumina Jennifer ♥.",
+    "Por estos dos años, por los que vienen, y por todas las vidas en las que volvería a buscarte.",
+    "Gracias por leerme, escucharme, cuidarme y quedarte. Todavía nos faltan cielos por mirar juntos.",
+    "",
+    "Desarrollado por Rob, inspirado en momentos especiales y mi persona favorita.",
+    ""
   ],
   "scenes": {
     "habitacion_recuerdos": {
@@ -883,7 +892,7 @@
         {
           "character": "robert",
           "characterAnimation": "bounce",
-          "text": "Jennifer, preparé este lugar para que recorras nuestra historia a tu ritmo."
+          "text": "Mi amor, preparé este lugar para que recorras nuestra historia a tu ritmo."
         },
         {
           "character": "robert",
@@ -1453,7 +1462,7 @@
       "name": "Vínculo",
       "background": "assets/backgrounds/bg_11_vinculo.png",
       "music": "vinculo",
-      "musicVolume": 0.3,
+      "musicVolume": 0.2,
       "chapter": 11,
       "memoryId": "cap_11",
       "word": "Vínculo",
@@ -1501,7 +1510,8 @@
     "cap_12_paraiso_lunar": {
       "name": "Paraíso Lunar",
       "background": "assets/backgrounds/bg_12_paraiso_lunar.png",
-      "music": "lunar",
+      "music": "paraiso_lunar",
+      "musicVolume": 0.2,
       "chapter": 12,
       "memoryId": "cap_12",
       "word": "Luna",
@@ -1512,35 +1522,68 @@
         ]
       },
       "completionTitle": "Canción desbloqueada - Paraíso Lunar",
-      "completionText": "La luna y la carta del quinto mes quedan en la cajita.",
+      "completionText": "No todas las lunas están en el cielo. Algunas se guardan en una cajita, entre cartas, miedo, cariño y ganas de seguir.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "El 25 de octubre de 2024, en el quinto mes, una canción se volvió recuerdo.",
+          "text": "El 25 de octubre de 2024, en nuestro quinto mes, una carta llegó con una canción: [anim=glow]Paraíso Lunar[/anim].",
           "important": true
         },
         {
           "character": "robert",
-          "text": "Paraíso Lunar quedó como una luna pequeña entre los dos."
+          "characterAnimation": "bounce",
+          "text": "Fue como si me hubieras mostrado un lugar donde te sentías conmigo."
         },
         {
           "character": "jennifer",
-          "text": "Hay canciones que parecen regalos cuando llegan en una carta."
+          "characterAnimation": "bounce",
+          "text": "¿Un lugar?"
         },
         {
           "character": "robert",
-          "text": "Y esta se quedó guardada como una noche suave dentro de nuestra historia."
+          "characterAnimation": "bounce",
+          "text": "Sí. Un lugar donde podías sentirte chiquita, protegida, abrazada… como si por un momento el ruido de tu mente bajara."
+        },
+        {
+          "character": "jennifer",
+          "characterAnimation": "bounce",
+          "text": "A veces tus abrazos me hacían sentir que todo iba a estar bien."
+        },
+        {
+          "character": "robert",
+          "characterAnimation": "bounce",
+          "text": "Y yo no sabía que algo tan simple como abrazarte podía significar tanto."
         },
         {
           "character": "narrator",
-          "text": "No todas las lunas están en el cielo. Algunas se guardan en una cajita."
+          "text": "En esa carta también mencionaste caminatas, mis sonrisas, dormir juntos, escuchar mis latidos, pensar en mis comidas favoritas y el miedo tierno de querer quedarte."
+        },
+        {
+          "character": "robert",
+          "characterAnimation": "bounce",
+          "text": "Me gustó saber que querías seguir avanzando conmigo, incluso con miedo, incluso aprendiendo, incluso cuando no todo era fácil."
+        },
+        {
+          "character": "jennifer",
+          "characterAnimation": "bounce",
+          "text": "Porque te quería. Te pensaba. Y no quería a nadie más que a ti."
+        },
+        {
+          "character": "robert",
+          "characterAnimation": "bounce",
+          "text": "Por eso [anim=glow]Paraíso Lunar[/anim] se quedó guardado en esa carta. No como una canción cualquiera, sino como una forma de recordar que contigo también puedo ser refugio."
+        },
+        {
+          "character": "narrator",
+          "text": "No todas las lunas están en el cielo. Algunas se guardan en una cajita, entre cartas, miedo, cariño y ganas de seguir."
         }
       ]
     },
     "cap_13_siddhartha": {
       "name": "Siddhartha",
       "background": "assets/backgrounds/bg_13_siddhartha.png",
-      "music": "concert",
+      "music": "como_querernos",
+      "musicVolume": 0.2,
       "chapter": 13,
       "memoryId": "cap_13",
       "word": "Cantar",
@@ -1551,28 +1594,36 @@
         ]
       },
       "completionTitle": "Recuerdo musical desbloqueado",
-      "completionText": "Verla cantar queda guardado como parte favorita del concierto.",
+      "completionText": "Verte cantar queda guardado como parte favorita del concierto.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Fuimos a ver a uno de tus artistas favoritos. Y aunque Robert también disfrutó la música, lo que más le gustó fue verte cantar.",
+          "text": "Fuimos a ver a uno de tus artistas favoritos. Y aunque también disfrute de la música, lo que más me gustó fue verte cantar ♥.",
           "important": true
         },
         {
           "character": "jennifer",
-          "text": "Hay canciones que se cantan porque se conocen de memoria."
+          "characterAnimation": "bounce",
+          "text": "Hay canciones que se cantan porque se disfrutan y se conocen de memoria."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Y hay personas que uno mira porque quiere guardar cómo se ven cuando son felices."
         },
         {
           "character": "jennifer",
-          "text": "Entonces no solo era un concierto."
+          "characterAnimation": "bounce",
+          "text": "Entonces no solo fue un concierto."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Para mí también era verte vivir algo que te gustaba."
+        },
+        {
+          "character": "narrator",
+          "text": "Verte cantar queda guardado como parte favorita del concierto."
         }
       ]
     },
@@ -1590,24 +1641,27 @@
         ]
       },
       "completionTitle": "Entrada coleccionable desbloqueada",
-      "completionText": "La música queda como una de sus formas de encontrarse.",
+      "completionText": "La música queda como una forma de encontrarse.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Durante 2024 y 2025, los conciertos se volvieron parte de su historia.",
+          "text": "Durante 2024 y 2025, los conciertos se volvieron parte de nuestra historia.",
           "important": true
         },
         {
           "character": "robert",
-          "text": "Rock, luces, ruido, filas, entradas, cansancio... y tú."
+          "characterAnimation": "bounce",
+          "text": "Rock, luces, ruido, filas, entradas, cansancio... [anim=glow]y tú conmigo[/anim]."
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "La música nos daba lugares donde estar juntos."
         },
         {
           "character": "robert",
-          "text": "En medio de la multitud, buscar tu mano era mi punto fijo."
+          "characterAnimation": "bounce",
+          "text": "En medio de la multitud, buscar tu mano era mi punto fijo para no perdernos."
         },
         {
           "character": "narrator",
@@ -1624,7 +1678,7 @@
       "word": "Idioma",
       "nextScene": "cap_16_quesito",
       "completionTitle": "Easter egg tierno desbloqueado",
-      "completionText": "El chat raro queda guardado como idioma privado.",
+      "completionText": "Wiwiwiwi queda como una frase nuestra.",
       "dialogues": [
         {
           "character": "narrator",
@@ -1633,24 +1687,33 @@
           "sfx": "message"
         },
         {
+          "character": "robert",
+          "characterAnimation": "bounce",
+          "text": "La empezamos a luego de casi un año de estar juntos."
+        },
+        {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "No todo tiene que tener traducción."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Algunas palabras son tontas para el mundo y bonitas para nosotros."
         },
         {
           "character": "jennifer",
-          "text": "Wiwiwiwi."
+          "characterAnimation": "bounce",
+          "text": "[anim=wiggle]Wiwiwiwi[/anim]."
         },
         {
           "character": "robert",
-          "text": "Wiwiwiwi."
+          "characterAnimation": "bounce",
+          "text": "[anim=wiggle]Wiwiwiwi[/anim]."
         },
         {
           "character": "narrator",
-          "text": "Y con eso bastaba."
+          "text": "Y con eso basta."
         }
       ]
     },
@@ -1672,15 +1735,18 @@
         },
         {
           "character": "robert",
-          "text": "Este es un recuerdo escondido, de esos que solo tienen sentido entre dos personas."
+          "characterAnimation": "bounce",
+          "text": "Este es un recuerdo escondido, de esos que solo tienen sentido entre nosotros."
         },
         {
           "character": "jennifer",
-          "text": "Quesito encontrado."
+          "characterAnimation": "bounce",
+          "text": "[anim=pop]Quesito[/anim] encontrado."
         },
         {
           "character": "robert",
-          "text": "No diremos más. Ese es el punto."
+          "characterAnimation": "bounce",
+          "text": "No diremos más, ese es el punto. Ya sabemos de que se trata y ese es nuestro pequeño secreto 💏"
         },
         {
           "character": "narrator",
@@ -1698,28 +1764,31 @@
       "minigameId": "mg_comida",
       "nextScene": "cap_18_lectura",
       "completionTitle": "Palabra desbloqueada - Compartir",
-      "completionText": "Diferentes sabores, misma mesa.",
+      "completionText": "Diferentes sabores compartiendo la misma mesa.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Jennifer es más de salado. Robert es más de dulce. A veces son distintos, pero también se complementan.",
+          "text": "Tú eres más de salado y yo más de dulce. A veces son distintos, pero también se complementan.",
           "important": true
         },
         {
           "character": "jennifer",
-          "text": "Arroz con pollo o caraota con arroz. Eso sí suena bien."
+          "characterAnimation": "bounce",
+          "text": "Papitas o empanaditas.  Eso sí suena bien."
         },
         {
           "character": "robert",
-          "text": "Y yo podría llegar con helado de ron con pasas."
+          "characterAnimation": "bounce",
+          "text": "Y yo podría llegar con helado, donas o algo dulce con frutas."
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "Entonces que haya espacio para las dos cosas."
         },
         {
           "character": "narrator",
-          "text": "Amar también puede ser aprender qué le gusta al otro y ponerlo sobre la misma mesa."
+          "text": "Amar también puede ser aprender qué le gusta al otro y ponerlo sobre la misma mesa para disfrutar juntos."
         }
       ]
     },
@@ -1732,7 +1801,7 @@
       "word": "Escucharte",
       "nextScene": "cap_19_orgullo_prejuicio",
       "completionTitle": "Escena de lectura desbloqueada",
-      "completionText": "Sus mundos también quedan guardados en la habitación.",
+      "completionText": "Tus mundos también quedan guardados en mi memoria.",
       "dialogues": [
         {
           "character": "narrator",
@@ -1741,48 +1810,55 @@
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "A veces leer es entrar a un mundo y querer contárselo a alguien."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Yo no tengo el mismo hábito de lectura, pero me gusta escucharte."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Me gusta cuando me llevas a tus historias, aunque yo no las haya abierto primero."
         },
         {
           "character": "narrator",
-          "text": "Escuchar también puede ser una forma de acompañar."
+          "text": "Escuchar también puede ser una forma de acompañar y compartir experiencias."
         }
       ]
     },
     "cap_19_orgullo_prejuicio": {
       "name": "Orgullo y prejuicio",
       "background": "assets/backgrounds/bg_19_orgullo_prejuicio.png",
-      "music": "reading",
+      "music": "pride_and_prejudice",
+      "musicVolume": 0.4,
       "chapter": 19,
       "memoryId": "cap_19",
       "word": "Mundos",
       "nextScene": "cap_20_mocca_parque",
       "completionTitle": "Recuerdo de película desbloqueado",
-      "completionText": "Las cosas que vienen de Jennifer llegan distinto.",
+      "completionText": "Las cosas que vienen de ti llegan distinto.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Jennifer le hizo ver Orgullo y prejuicio. Y a Robert le gustó más de lo que esperaba.",
+          "text": "Me hiciste ver Orgullo y prejuicio. Y me gustó más de lo que esperaba.",
           "important": true
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Tal vez porque las cosas que vienen de ti llegan distinto."
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "No tienes que amar todos mis mundos desde el inicio."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Pero sí quiero sentarme contigo a conocerlos."
         },
         {
@@ -1806,28 +1882,31 @@
         ]
       },
       "completionTitle": "Huellita coleccionable desbloqueada",
-      "completionText": "Pasear a Mocca queda como vida simple.",
+      "completionText": "Pasear a Mocca queda como un recuerdo simple, pero significativo.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Pasear a Mocca en el parque se volvió una de esas escenas sencillas que hacen bien.",
+          "text": "Pasear a Mocca en el parque se volvió una de esas cosas sencillas que hacen bien.",
           "important": true
         },
         {
           "character": "robert",
-          "text": "Me gusta caminar contigo, tomar tu mano y sentir que no hace falta algo enorme para estar feliz."
+          "characterAnimation": "bounce",
+          "text": "Mientras paseamos a Mocca, me gusta caminar contigo, tomar tu mano y sentir que no hace falta algo enorme para estar feliz."
         },
         {
           "character": "jennifer",
-          "text": "A veces lo simple es lo que más descansa."
+          "characterAnimation": "bounce",
+          "text": "A veces lo simple es lo que más se aprecia."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Mocca adelante, nosotros detrás, y el día bajando despacio."
         },
         {
           "character": "narrator",
-          "text": "La vida simple también se queda."
+          "text": "La vida simple también es algo que se valora."
         }
       ]
     },
@@ -1840,28 +1919,31 @@
       "word": "Hogar",
       "nextScene": "cap_22_jacuzzi",
       "completionTitle": "Escena de calma desbloqueada",
-      "completionText": "Dormir cerca queda guardado como una forma de hogar.",
+      "completionText": "Dormir juntos es una forma de decir hogar.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Dormir cerca también puede ser una forma de decir hogar.",
+          "text": "Dormir juntos también puede ser una forma de decir hogar.",
           "important": true
         },
         {
           "character": "robert",
-          "text": "Me gusta dormir contigo. Me gusta tu calma y tu respiración."
+          "characterAnimation": "bounce",
+          "text": "Me gusta dormir contigo, me gusta tu calma y tu respiración mientras duermes."
         },
         {
           "character": "robert",
-          "text": "Me gusta sentir que por un rato no falta nada."
+          "characterAnimation": "bounce",
+          "text": "Me gusta sentir que por un rato no falta nada y [anim=glow]tú estás aquí conmigo[/anim]."
         },
         {
           "character": "jennifer",
-          "text": "A veces basta apagar la luz y estar."
+          "characterAnimation": "bounce",
+          "text": "A veces basta apagar la luz y solo estar solos en silencio."
         },
         {
           "character": "narrator",
-          "text": "Hay recuerdos que no hacen ruido, pero abrigan mucho."
+          "text": "Hay recuerdos que no hacen ruido, pero abrigan mucho en el alma."
         }
       ]
     },
@@ -1875,17 +1957,17 @@
       "minigameId": "mg_jacuzzi",
       "nextScene": "cap_23_raura",
       "completionTitle": "Logro desbloqueado - Desastre acuático",
-      "completionText": "El recuerdo mojado queda guardado sin dramatizar.",
+      "completionText": "Recuerdo desbloqueado: Desastre acuático!!!",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "También hay recuerdos desastrosos. Como esa vez que no supieron usar el jacuzzi y casi convierten la habitación en una [anim=wiggle]piscina[/anim].",
+          "text": "También hay recuerdos desastrosos. Como esa vez que no supimos cómo usar el jacuzzi y casi se convierte la habitación en una [anim=wiggle]piscina[/anim] [anim=shake]🤣[/anim].",
           "important": true,
           "sfx": "water"
         },
         {
           "character": "jennifer",
-          "characterAnimation": "shake",
+          "characterAnimation": "bounce",
           "text": "No todos los recuerdos son elegantes."
         },
         {
@@ -1895,15 +1977,17 @@
         },
         {
           "character": "jennifer",
-          "text": "Y terminan con toallas por todos lados."
+          "characterAnimation": "shake",
+          "text": "Y terminan con papeles por todos lados."
         },
         {
           "character": "robert",
-          "text": "Pero ahora da risa. Y eso también merece guardarse."
+          "characterAnimation": "bounce",
+          "text": "Pero ahora da risa. Y eso también merece guardarse como una anécdota."
         },
         {
           "character": "narrator",
-          "text": "Recuerdo desbloqueado: desastre acuático."
+          "text": "Recuerdo desbloqueado: [anim=wiggle]Desastre acuático!!![/anim]"
         }
       ]
     },
@@ -2187,7 +2271,7 @@
       ]
     },
     "cap_30_carta_final": {
-      "name": "Carta final",
+      "name": "Carta Final",
       "background": "assets/backgrounds/bg_30_carta_final.png",
       "music": "final",
       "chapter": 30,
@@ -2198,9 +2282,9 @@
           "carta_final"
         ]
       },
-      "completionTitle": "Carta final desbloqueada",
-      "completionText": "La carta completa queda lista para guardarse en la cajita.",
-      "completeLabel": "Leer carta final",
+      "completionTitle": "Carta Final desbloqueada",
+      "completionText": "La carta completa esta lista para abrirse.",
+      "completeLabel": "Leer carta",
       "dialogues": [
         {
           "character": "narrator",
@@ -2210,23 +2294,23 @@
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Gracias por estos dos años, por tus cartas, por tus canciones, por tu forma de mirar lo que siento."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Gracias también por quedarte en los días fáciles y por intentar en los días difíciles."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "No prometo que todo será perfecto. Prometo seguir intentando, seguir creciendo y seguir eligiéndote."
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "Entonces leamos la carta."
-        },
-        {
-          "character": "narrator",
-          "text": "La última carta no cierra la historia. Solo deja escrita la promesa de continuar."
         }
       ]
     }

@@ -548,37 +548,93 @@
     "parque_amistad_24-06-29": {
       "title": "Parque de la amistad",
       "date": "29/06/2024",
-      "category": "Primeros momentos",
+      "category": "Lugares",
       "image": "assets/photos/photo_parque_amistad_24-06-29.png",
       "description": "Una bonita noche que la pase contigo."
     },
     "teatro_241206": {
       "title": "Teatro Nacional",
       "date": "06/12/2024",
-      "category": "Primeros momentos",
+      "category": "Lugares",
       "image": "assets/photos/photo_teatro_241206.png",
       "description": "Disfrutamos de una buena función."
     },
     "comida_juntos": {
       "title": "Comida juntos",
       "date": "28/02/2025",
-      "category": "Primeros momentos",
+      "category": "Momentos Juntos",
       "image": "assets/photos/photo_comida_juntos.png",
       "description": "Disfrutamos de una cena hecha por nosotros."
+    },
+    "lachay_2024": {
+      "title": "Lomas de Lachay",
+      "date": "11/08/2024",
+      "category": "Viajes",
+      "image": "assets/photos/photo_lachay.png",
+      "description": "Nuestro primer fullday."
     },
     "tickets": {
       "title": "Tickets",
       "date": "",
-      "category": "Primeros momentos",
+      "category": "Eventos",
       "image": "assets/photos/photo_tickets.png",
       "description": "Algunos tickets que nos llevaron a varios lugares."
     },
     "nombre_japones": {
       "title": "Nuestros nombres en japonés",
       "date": "",
-      "category": "Primeros momentos",
+      "category": "Eventos",
       "image": "assets/photos/photo_nombres_japones.png",
       "description": "Los nombres en japonés."
+    },
+    "jenn_abejita": {
+      "title": "Mi bebé abejita",
+      "date": "05/12/2024",
+      "category": "Conciertos",
+      "image": "assets/photos/photo_jenn_abejita.png",
+      "description": "Mi bebé abejita."
+    },
+    "llavero_snoopy": {
+      "title": "Llaveros de Snoopy",
+      "date": "",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_snoopys.png",
+      "description": "Nuestros llaveros de snoopy ♥."
+    },
+    "halloween_2024": {
+      "title": "Halloween 2024",
+      "date": "31/10/2024",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_halloween_2024.png",
+      "description": "Cuando fuimos disfrazados en Halloween 2024."
+    },
+    "soad": {
+      "title": "Saliendo del concierto de System of a Down",
+      "date": "27/04/2025",
+      "category": "Conciertos",
+      "image": "assets/photos/photo_soad.png",
+      "description": "Como quedamos al final del concierto de System of a Down."
+    },
+    "bodaburguer": {
+      "title": "Nuestra BurguerBoda",
+      "date": "31/05/2025",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_bodaburguer.png",
+      "description": "Cuando nos casamos en el BurguerFest."
+    },
+    "halloween_2025": {
+      "title": "Halloween 2025",
+      "date": "31/10/2025",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_halloween_2025.png",
+      "description": "Cuando salimos a repartir dulces en Halloween 2025."
+    },
+    "gunsnroses": {
+      "title": "En el concierto de Guns N' Roses",
+      "date": "05/11/2025",
+      "category": "Conciertos",
+      "image": "assets/photos/photo_gunsnroses.png",
+      "description": "Un recuerdo antes del concierto de Guns N' Roses."
     }
   },
   "minigames": {
@@ -823,7 +879,7 @@
         },
         {
           "id": "ramo",
-          "label": "Ramo final"
+          "label": "Ramo Final"
         }
       ]
     },
@@ -1158,7 +1214,7 @@
       "memoryId": "cap_04",
       "word": "Beso",
       "minigameId": "mg_primer_beso",
-      "nextScene": "cap_05_manos",
+      "nextScene": "cap_06_25_mayo",
       "completionTitle": "Recuerdo desbloqueado - La banca",
       "completionText": "El primer beso queda guardado como un momento tierno e inesperado.",
       "dialogues": [
@@ -1201,7 +1257,7 @@
       "memoryId": "cap_05",
       "word": "Manos",
       "minigameId": "mg_foto_manos",
-      "nextScene": "cap_06_25_mayo",
+      "nextScene": "cap_07_bebe",
       "unlocks": {
         "gallery": [
           "photo_manos"
@@ -1244,7 +1300,7 @@
       "chapter": 6,
       "memoryId": "cap_06",
       "word": "Nosotros",
-      "nextScene": "cap_07_bebe",
+      "nextScene": "cap_05_manos",
       "completionTitle": "Recuerdo desbloqueado - Nosotros",
       "completionText": "El calendario marca el día en que empezamos a elegirnos.",
       "dialogues": [

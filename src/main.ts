@@ -1929,7 +1929,7 @@ function renderGalleryExtra() {
   state.screen = "gallery_extra";
   audio.playMusic("hub");
 
-  const screen = renderCatalogShell("Galeria extra", "Fotos extras de momentos y cosas que faltaron mencionar, pero son importantes.");
+  const screen = renderCatalogShell("Galeria extra", "Algunas fotos extras de momentos y cosas que faltaron mencionar, pero son importantes.");
   const grid = el("div", "catalog-grid gallery-grid");
 
   for (const [id, item] of Object.entries(getGalleryCollection("gallery_extra"))) {

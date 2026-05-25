@@ -587,13 +587,6 @@
       "image": "assets/photos/photo_nombres_japones.png",
       "description": "Los nombres en japonés."
     },
-    "jenn_abejita": {
-      "title": "Mi bebé abejita",
-      "date": "05/12/2024",
-      "category": "Conciertos",
-      "image": "assets/photos/photo_jenn_abejita.png",
-      "description": "Mi bebé abejita."
-    },
     "llavero_snoopy": {
       "title": "Llaveros de Snoopy",
       "date": "",
@@ -607,6 +600,62 @@
       "category": "Momentos Juntos",
       "image": "assets/photos/photo_halloween_2024.png",
       "description": "Cuando fuimos disfrazados en Halloween 2024."
+    },
+    "cita_rompecabeza": {
+      "title": "Una cita rompecabeza",
+      "date": "21/09/2024",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_cita_rompecabezas.png",
+      "description": "Un momento bonito jugando juntos."
+    },
+    "jenn_abejita": {
+      "title": "Mi bebé abejita",
+      "date": "05/12/2024",
+      "category": "Conciertos",
+      "image": "assets/photos/photo_jenn_abejita.png",
+      "description": "Mi bebé abejita."
+    },
+    "plastilina": {
+      "title": "Muñequitos de plastilina",
+      "date": "11/12/2024",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_plastilina.png",
+      "description": "Las figuras de plastilina que hicimos juntos."
+    },
+    "anonuevo_2025": {
+      "title": "Año nuevo 2025",
+      "date": "01/01/2025",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_anonuevo2025.png",
+      "description": "Celebramos el Año Nuevo 2025."
+    },
+    "cita_dulce": {
+      "title": "Una cita dulce",
+      "date": "10/01/2025",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_cita_dulce.png",
+      "description": "Una cita dulce que deberiamos repetir."
+    },
+    "ancon": {
+      "title": "Paseo en Yate",
+      "date": "14/01/2025",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_ancon.png",
+      "description": "Un paseo en yate en Ancon."
+    },
+    "lum": {
+      "title": "LUM",
+      "date": "02/02/2025",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_lum.png",
+      "description": "Visitamos LUM."
+    },
+    "raura_2": {
+      "title": "En Raura",
+      "date": "16/02/2025",
+      "category": "Momentos Juntos",
+      "image": "assets/photos/photo_raura_2.png",
+      "description": "Mientras subiamos y el frio que hacía."
     },
     "soad": {
       "title": "Saliendo del concierto de System of a Down",
@@ -1732,7 +1781,7 @@
         {
           "character": "robert",
           "characterAnimation": "bounce",
-          "text": "La empezamos a luego de casi un año de estar juntos."
+          "text": "La empezamos a usar luego de casi un año de estar juntos."
         },
         {
           "character": "jennifer",

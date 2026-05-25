@@ -70,6 +70,7 @@ select {
 }
 
 .menu-screen,
+.password-screen,
 .game-shell,
 .device-warning-screen,
 .error-screen,
@@ -83,6 +84,7 @@ select {
 }
 
 .menu-screen,
+.password-screen,
 .device-warning-screen,
 .modal-screen,
 .credits-screen,
@@ -96,6 +98,7 @@ select {
 }
 
 .menu-panel,
+.password-panel,
 .device-warning-panel,
 .unlock-panel,
 .credits-panel {
@@ -166,6 +169,40 @@ select {
 
 .menu-actions {
   margin-top: 28px;
+}
+
+.password-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  width: min(520px, 100%);
+  margin: 26px auto 0;
+}
+
+.password-input {
+  min-height: 50px;
+  min-width: 0;
+  border: 3px solid #465f9b;
+  border-radius: 0;
+  padding: 10px 14px;
+  background: #101827;
+  color: #d7f8ff;
+  box-shadow:
+    0 0 0 2px rgba(7, 10, 20, 0.9),
+    inset 3px 3px 0 rgba(0, 0, 0, 0.42);
+  outline: none;
+}
+
+.password-input:focus {
+  border-color: var(--gold);
+}
+
+.password-feedback {
+  grid-column: 1 / -1;
+  min-height: 1.5em;
+  margin: 0;
+  color: #ffe6a8;
+  font-weight: 700;
 }
 
 .primary-button,
@@ -1486,6 +1523,10 @@ select {
   .secondary-button,
   .ghost-button {
     width: 100%;
+  }
+
+  .password-form {
+    grid-template-columns: 1fr;
   }
 
   .choice-button {

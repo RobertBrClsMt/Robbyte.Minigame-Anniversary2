@@ -6,6 +6,7 @@ type UnlockMap = Record<string, boolean>;
 type GalleryScreen = "gallery" | "gallery_extra";
 
 type Screen =
+  | "password"
   | "menu"
   | "game"
   | "memories"
@@ -16,7 +17,7 @@ type Screen =
   | "minigame"
   | "exit";
 
-type ReturnScreen = Exclude<Screen, "minigame">;
+type ReturnScreen = Exclude<Screen, "minigame" | "password">;
 
 type UnlockSet = {
   memories?: string[];
@@ -34,7 +35,7 @@ type Action =
   | { type: "startMinigame"; minigame: string }
   | { type: "showLetter"; letter: string }
   | { type: "showGalleryItem"; item: string }
-  | { type: "showScreen"; screen: Exclude<Screen, "game" | "minigame"> }
+  | { type: "showScreen"; screen: Exclude<Screen, "password" | "game" | "minigame"> }
   | { type: "completeChapter" };
 
 const CHOICE_STYLES = ["primary", "secondary", "info", "alert", "warn", "error"] as const;
@@ -278,6 +279,7 @@ const MUTE_KEY = "anniversary-vn-muted-v1";
 const MUSIC_MUTE_KEY = "anniversary-vn-music-muted-v1";
 const SFX_MUTE_KEY = "anniversary-vn-sfx-muted-v1";
 const DEFAULT_TYPING_SPEED = 22;
+const ENTRY_PASSWORDS = new Set(["Quesito", "quesito"]);
 const CHARACTER_ANIMATIONS = ["bounce", "shake", "nod", "wiggle", "pulse", "float"] as const;
 const TEXT_ANIMATIONS = ["bounce", "shake", "pulse", "wiggle", "pop", "glow"] as const;
 const appElement = document.querySelector<HTMLDivElement>("#app");
@@ -631,7 +633,7 @@ function loadSave(): SaveData | null {
 }
 
 function saveGame() {
-  if (!gameData || state.screen === "menu") {
+  if (!gameData || state.screen === "password" || state.screen === "menu" || !state.sceneId) {
     return;
   }
 
@@ -982,7 +984,7 @@ function runActions(actions?: Action[]) {
   return false;
 }
 
-function renderScreen(screen: Exclude<Screen, "game" | "minigame">) {
+function renderScreen(screen: Exclude<Screen, "password" | "game" | "minigame">) {
   if (screen === "menu") {
     renderMenu();
     return;
@@ -1103,6 +1105,55 @@ function restoreSave(save: SaveData, targetSceneId = save.sceneId, targetDialogu
   audio.setSfxMuted(state.sfxMuted);
   enterScene(targetSceneId, targetDialogueIndex);
   return true;
+}
+
+function enterAfterPassword() {
+  renderMenu();
+}
+
+function renderPasswordGate(onSuccess: () => void) {
+  state.screen = "password";
+  audio.playMusic("menu");
+
+  const screen = el("main", "password-screen");
+  screen.style.backgroundImage = `linear-gradient(rgba(8, 14, 28, 0.32), rgba(8, 14, 28, 0.78)), url("${assetUrl("assets/backgrounds/bg_habitacion_recuerdos.png")}")`;
+
+  const panel = el("section", "password-panel");
+  const eyebrow = el("p", "eyebrow", "Acceso privado");
+  const title = el("h1", "screen-title", "Antes de entrar");
+  const subtitle = el("p", "screen-copy", "¿Qué nos gusta hacer?");
+  const form = el("form", "password-form");
+  const input = el("input", "password-input") as HTMLInputElement;
+  const feedback = el("p", "password-feedback", " ");
+  const submit = makeButton("primary-button", "Entrar", () => undefined);
+  submit.type = "submit";
+
+  input.type = "password";
+  input.name = "entry-password";
+  input.autocomplete = "off";
+  input.placeholder = "Palabra secreta";
+  input.setAttribute("aria-label", "Palabra secreta");
+  feedback.setAttribute("aria-live", "polite");
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (ENTRY_PASSWORDS.has(input.value.trim())) {
+      audio.playSfx("unlock");
+      onSuccess();
+      return;
+    }
+
+    feedback.textContent = "Palabra secreta incorrecta. Intentalo otra vez.";
+    input.value = "";
+    input.focus();
+    audio.playSfx("soft");
+  });
+
+  form.append(input, submit, feedback);
+  panel.append(eyebrow, title, subtitle, form);
+  screen.append(panel);
+  replaceApp(screen);
+  input.focus();
 }
 
 function renderMenu() {
@@ -1968,6 +2019,11 @@ function renderGalleryExtraLockedNotice() {
       "screen-copy",
       "Para entrar aqui, primero debes completar o encontrar todos los recuerdos.",
     ),
+    el(
+      "p",
+      "screen-copy",
+      "",
+    ),
     makeIconTextButton("primary-button", "back", "Volver a la habitación", () => enterScene(getData().startScene), "Volver a la habitación"),
   );
   screen.append(panel);
@@ -2248,12 +2304,7 @@ async function bootstrap() {
     window.addEventListener("keydown", handleKeyboard);
     installAutosaveHandlers();
 
-    const save = loadSave();
-    if (save && restoreSave(save)) {
-      return;
-    }
-
-    renderMenu();
+    renderPasswordGate(enterAfterPassword);
   } catch (error) {
     const screen = el("main", "error-screen");
     const title = el("h1", undefined, "No se pudo cargar el juego");

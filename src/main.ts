@@ -1835,7 +1835,7 @@ function renderLetters() {
   state.screen = "letters";
   audio.playMusic("letters");
 
-  const screen = renderCatalogShell("Cartas", "Pequeñas cartas que desbloqueaste mientras recorrias los recuerdos.");
+  const screen = renderCatalogShell("Cajita de cartas", "Pequeñas cartas que desbloqueaste mientras recorrias los recuerdos.");
   const grid = el("div", "catalog-grid");
 
   for (const [id, letter] of Object.entries(getData().letters)) {
@@ -1843,7 +1843,7 @@ function renderLetters() {
     const card = el("article", unlocked ? "catalog-card letter-card" : "catalog-card letter-card locked");
     card.append(
       el("h2", undefined, unlocked ? letter.title : "Carta bloqueada"),
-      el("p", "catalog-meta", unlocked ? letter.date : "Todavía está en la cajita."),
+      el("p", "catalog-meta", unlocked ? letter.date : "Todavía no está en la cajita."),
       el("p", "catalog-copy", unlocked ? letter.description : "Se desbloquea al avanzar por los recuerdos."),
     );
     if (unlocked) {
@@ -1902,13 +1902,13 @@ function renderGallery(gallery: GalleryScreen = "gallery") {
     const unlocked = state.unlocked.gallery[id];
     const card = el("article", unlocked ? "catalog-card gallery-card" : "catalog-card gallery-card locked");
     const image = el("img", "gallery-thumb");
-    image.src = assetUrl(unlocked ? item.image : "assets/ui/photo_locked.svg");
+    image.src = assetUrl(unlocked ? item.image : "assets/ui/photo_locked.png");
     image.alt = unlocked ? item.title : "";
     card.append(
       image,
       el("h2", undefined, unlocked ? item.title : "Foto pendiente"),
-      el("p", "catalog-meta", unlocked ? `${item.date} · ${item.category}` : "Pendiente"),
-      el("p", "catalog-copy", unlocked ? item.description : "Reemplaza este espacio cuando tengas la foto real."),
+      el("p", "catalog-meta", unlocked ? `${item.date} · ${item.category}` : ""),
+      el("p", "catalog-copy", unlocked ? item.description : "Tienes que encontrar esta foto antes de poder verla."),
     );
     if (unlocked) {
       card.append(makeIconTextButton("secondary-button small-button", "image", "Ver", () => renderGalleryItem(id, "gallery"), `Ver ${item.title}`));

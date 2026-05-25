@@ -121,7 +121,7 @@
       "object": "Celular con chat",
       "word": "Invitación",
       "scene": "cap_02_invitacion",
-      "description": "Volver a mirar distinto y atreverse a enviar el primer plan."
+      "description": "Volver a mirarte distinto y atreverme a dar el primer paso."
     },
     "cap_03": {
       "chapter": 3,
@@ -141,7 +141,7 @@
       "object": "Banca",
       "word": "Beso",
       "scene": "cap_04_banca_beso",
-      "description": "Luces de feria, nervios y un momento que cambió todo."
+      "description": "Luces del featival, nervios y un momento que cambió todo."
     },
     "cap_05": {
       "chapter": 6,
@@ -161,7 +161,7 @@
       "object": "Calendario",
       "word": "Nosotros",
       "scene": "cap_06_25_mayo",
-      "description": "El día en que empezaron a elegirlo con intención."
+      "description": "El día en que empezamos a elegirlo con intención."
     },
     "cap_07": {
       "chapter": 7,
@@ -181,7 +181,7 @@
       "object": "Peluche y rosas",
       "word": "Cuidarte",
       "scene": "cap_08_tamalito_rosas",
-      "description": "Un primer regalo con ganas de verla feliz."
+      "description": "Un primer regalo con ganas de verte feliz."
     },
     "cap_09": {
       "chapter": 9,
@@ -191,7 +191,7 @@
       "object": "Cajita de cartas",
       "word": "Cartas",
       "scene": "cap_09_cajita_cartas",
-      "description": "Ella escribió primero y enseñó otra forma de decir amor."
+      "description": "Tú escribiste primero y me enseñaste otra forma de decir amor."
     },
     "cap_10": {
       "chapter": 10,
@@ -201,7 +201,7 @@
       "object": "Carta del 25/07/24",
       "word": "Buscame",
       "scene": "cap_10_otra_vida",
-      "description": "Si en otra vida toca buscarse, la respuesta vuelve a ser siempre."
+      "description": "Si en otra vida toca buscarnos, la respuesta es: Ven a buscarme, me muero por conocerte."
     },
     "cap_11": {
       "chapter": 11,
@@ -211,7 +211,7 @@
       "object": "Reproductor musical",
       "word": "Vínculo",
       "scene": "cap_11_vinculo",
-      "description": "Una canción se volvió una forma de recordar cómo llegó Jennifer."
+      "description": "Una canción se volvió una forma de recordarte."
     },
     "cap_12": {
       "chapter": 12,
@@ -221,7 +221,7 @@
       "object": "Luna y carta",
       "word": "Luna",
       "scene": "cap_12_paraiso_lunar",
-      "description": "Una canción dedicada y una luna guardada entre los dos."
+      "description": "No todas las lunas están en el cielo. Algunas se guardan en una cajita, entre cartas, miedo, cariño y ganas de seguir."
     },
     "cap_13": {
       "chapter": 13,
@@ -231,7 +231,7 @@
       "object": "Entrada de concierto",
       "word": "Cantar",
       "scene": "cap_13_siddhartha",
-      "description": "Verla cantar también fue parte del concierto."
+      "description": "Verte cantar también fue parte del concierto."
     },
     "cap_14": {
       "chapter": 14,
@@ -241,7 +241,7 @@
       "object": "Pulsera de concierto",
       "word": "Música",
       "scene": "cap_14_conciertos",
-      "description": "Entre ruido, luces y canciones también aprendieron a encontrarse."
+      "description": "Entre ruido, luces y canciones también aprendimos a encontrarnos."
     },
     "cap_15": {
       "chapter": 15,
@@ -281,7 +281,7 @@
       "object": "Libro abierto",
       "word": "Escucharte",
       "scene": "cap_18_lectura",
-      "description": "No siempre se recuerdan los nombres, pero sí cómo brilla ella al contarlos."
+      "description": "No siempre se recuerdan los nombres, pero sí cómo brillas al contarmelos."
     },
     "cap_19": {
       "chapter": 19,
@@ -291,7 +291,7 @@
       "object": "Control remoto",
       "word": "Mundos",
       "scene": "cap_19_orgullo_prejuicio",
-      "description": "Una película que llegó distinto porque venía de Jennifer."
+      "description": "Una película que llegó distinto porque venía de ti ♥."
     },
     "cap_20": {
       "chapter": 20,
@@ -301,7 +301,7 @@
       "object": "Correa de Mocca",
       "word": "Calma",
       "scene": "cap_20_mocca_parque",
-      "description": "La vida simple también se queda."
+      "description": "La vida simple también se queda en el alma."
     },
     "cap_21": {
       "chapter": 21,
@@ -311,7 +311,7 @@
       "object": "Manta",
       "word": "Hogar",
       "scene": "cap_21_dormir_juntos",
-      "description": "Dormir cerca también es una forma de decir hogar."
+      "description": "Dormir juntos también es una forma de decir hogar."
     },
     "cap_22": {
       "chapter": 22,
@@ -351,7 +351,7 @@
       "object": "Marco de foto",
       "word": "Paz",
       "scene": "cap_25_foto_noche",
-      "description": "Un parque sin nombre guardó una calma muy suya."
+      "description": "Un parque guardó una calma inexplicable."
     },
     "cap_26": {
       "chapter": 26,
@@ -381,7 +381,7 @@
       "object": "Ramo de girasoles",
       "word": "Cuidarnos",
       "scene": "cap_28_girasoles",
-      "description": "Los girasoles quedan como símbolo de las formas pequeñas en que se cuidan."
+      "description": "Los girasoles quedan como símbolo de las formas pequeñas en que nos cuidamos."
     },
     "cap_29": {
       "chapter": 29,
@@ -401,7 +401,7 @@
       "object": "Carta Final",
       "word": "Elegirte",
       "scene": "cap_30_carta_final",
-      "description": "La promesa completa: seguir intentando, creciendo y eligiéndola."
+      "description": "La promesa completa: seguir intentando, creciendo y eligiendote."
     }
   },
   "letters": {
@@ -2006,28 +2006,46 @@
         ]
       },
       "completionTitle": "Copo coleccionable desbloqueado",
-      "completionText": "Raura queda como viaje que Robert quisiera repetir contigo.",
+      "completionText": "Ese día quedó guardado como uno de esos recuerdos que quisiera repetir: viajar contigo, descubrir lugares y celebrar tu vida estando a tu lado.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "El 16 de febrero de 2025, Raura guardó frío, montaña y cumpleaños.",
+          "text": "El 16 de febrero del 2025, tu cumpleaños no se quedó en un solo lugar. Se volvió un camino, paisajes y una gran montaña que subimos.",
           "important": true
         },
         {
           "character": "robert",
-          "text": "Ese viaje fue especial porque estábamos lejos de muchas cosas, pero cerca el uno del otro."
+          "characterAnimation": "bounce",
+          "text": "Raura fue parte de tu cumpleaños, pero para mí lo bonito también estuvo en todo lo que vimos antes de llegar."
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
+          "text": "También fue el camino, los lugares que vimos antes y todo lo que compartimos ese día."
+        },
+        {
+          "character": "robert",
+          "characterAnimation": "bounce",
+          "text": "Sí. Empiezó cuando estabamos juntos en el camino, mirando por la ventana, compartiendo el frío, cansancio y emoción."
+        },
+        {
+          "character": "robert",
+          "characterAnimation": "bounce",
+          "text": "Me gustó viajar contigo mor. Estar lejos de lo de siempre, pero cerca de ti."
+        },
+        {
+          "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "El frío también puede guardar algo cálido."
         },
         {
           "character": "robert",
-          "text": "Sobre todo si estás tú."
+          "characterAnimation": "bounce",
+          "text": "Sobre todo si estás [anim=glow]tú[/anim]."
         },
         {
           "character": "narrator",
-          "text": "Viajar contigo quedó guardado como un deseo que Robert quiere repetir."
+          "text": "Ese día quedó guardado como uno de esos recuerdos que quisiera repetir: viajar contigo, descubrir lugares y celebrar tu vida estando a tu lado."
         }
       ]
     },
@@ -2046,28 +2064,31 @@
         ]
       },
       "completionTitle": "Menú coleccionable desbloqueado",
-      "completionText": "La primera celebración de aniversario queda guardada.",
+      "completionText": "Nuestra primera celebración de aniversario es un recuerdo que quiero guardar para siempre.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "En el primer aniversario fueron a Osaka. Makis, chanchito nikkei y causa de cangrejo quedaron sobre la mesa.",
+          "text": "Nuestro primer aniversario fuimmos a cenar a Osaka. Comimos makis, chanchito nikkei y causa de cangrejo.",
           "important": true
         },
         {
           "character": "robert",
-          "text": "Para mí fue una noche especial. Era la primera vez que iba a un lugar así."
+          "characterAnimation": "bounce",
+          "text": "Para mí fue una noche especial. Era la primera vez que iba a un lugar así, [anim=glow]se sentia muy especial y me gustó compartirlo contigo[/anim]."
         },
         {
           "character": "jennifer",
-          "text": "Pero la noche no era solo por el lugar."
+          "characterAnimation": "bounce",
+          "text": "Pero lo especial no era solo por el lugar."
         },
         {
           "character": "robert",
-          "text": "Era por llegar juntos hasta ahí. Por poder decir: seguimos aquí."
+          "characterAnimation": "bounce",
+          "text": "Era por llegar juntos hasta ahí y por poder decir: [anim=glow]seguimos aquí[/anim]."
         },
         {
           "character": "narrator",
-          "text": "La cena fue bonita, pero lo importante era celebrar lo que habían construido."
+          "text": "La cena fue bonita, pero lo importante fue celebrar lo que habíamos construido hasta ese momento."
         }
       ]
     },
@@ -2085,29 +2106,42 @@
         ]
       },
       "completionTitle": "Parque Roosevelt desbloqueado",
-      "completionText": "Parque Roosevelt",
+      "completionText": "El nombre de ese lugar es Parque Roosevelt, uno de mis lugares favoritos porque estuve contigo.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Después de Osaka, una foto de noche guardó una calma difícil de explicar.",
+          "text": "Antes de llegar a Osaka, una foto de noche guardó una calma difícil de explicar.",
           "important": true,
           "sfx": "camera"
         },
         {
           "character": "robert",
-          "text": "Era un parque cerca al Parque Osaka. Tal vez Parque Roosevelt. Tal vez solo nuestro parque de esa noche."
+          "characterAnimation": "bounce",
+          "text": "Fuimos a un parque cerca de Osaka porque todavía faltaba para la hora de nuestra reservación."
         },
         {
           "character": "jennifer",
-          "text": "Hay lugares que no necesitan nombre si ya tienen calma."
+          "characterAnimation": "bounce",
+          "text": "Entonces ese lugar se volvió [anim=glow]nuestro parque de esa noche[/anim]."
         },
         {
           "character": "robert",
-          "text": "Esa foto debería estar aquí porque guarda una paz muy nuestra."
+          "characterAnimation": "bounce",
+          "text": "Sí, no necesitábamos hacer mucho. Solo estar ahí juntos, esperando, caminando y guardando ese momento sin saberlo."
+        },
+        {
+          "character": "jennifer",
+          "characterAnimation": "bounce",
+          "text": "Hay lugares que no necesitan nombre si ya tienen un recuerdo."
+        },
+        {
+          "character": "robert",
+          "characterAnimation": "bounce",
+          "text": "Esta foto debería estar aquí porque guarda una paz que todavía no sé explicar bien."
         },
         {
           "character": "narrator",
-          "text": "No siempre se recuerda todo de un lugar. A veces basta recordar cómo se sintió."
+          "text": "No siempre se recuerda todo de un lugar. [anim=glow]A veces basta recordar cómo se sintió estar juntos ahí[/anim]."
         }
       ]
     },
@@ -2121,28 +2155,31 @@
       "minigameId": "mg_dificil",
       "nextScene": "cap_27_llamadas",
       "completionTitle": "Palabra desbloqueada - Confianza",
-      "completionText": "Los días difíciles quedan tratados con respeto: escuchar, ser sincero y quedarse.",
+      "completionText": "A veces quedarse no significa ignorar lo difícil. Significa hablar, escuchar y mejorar por ambos.",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "También hubo días difíciles. Días donde dolió hablar, pero hubiera dolido más perderse.",
+          "text": "También hubo días difíciles, días donde dolió hablar, pero hubiera dolido más perdernos.",
           "important": true
         },
         {
           "character": "robert",
-          "text": "No fuimos perfectos. Yo tampoco lo fui. Pero quiero aprender a cuidar mejor la confianza."
+          "characterAnimation": "bounce",
+          "text": "No fui perfecto. Pero quiero aprender a cuidar mejor la confianza."
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "Entonces que este recuerdo no duela por repetirlo, sino que enseñe."
         },
         {
           "character": "robert",
-          "text": "Quiero ser más sincero contigo. Quiero que puedas sentir paz conmigo."
+          "characterAnimation": "bounce",
+          "text": "Quiero ser más sincero contigo. [anim=glow]Quiero que puedas sentir paz y tranquilidad conmigo[/anim]."
         },
         {
           "character": "narrator",
-          "text": "A veces quedarse no significa ignorar lo difícil. Significa hablar, escuchar y mejorar."
+          "text": "A veces quedarse no significa ignorar lo difícil. Significa hablar, escuchar y mejorar por ambos."
         }
       ]
     },
@@ -2165,19 +2202,23 @@
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "A veces una llamada no necesita una gran conversación."
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "A veces basta con escucharte cerca mientras cada uno hace sus cosas."
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "Entonces contesta."
         },
         {
           "character": "robert",
-          "text": "Siempre que pueda, sí."
+          "characterAnimation": "bounce",
+          "text": "Siempre que lo haré, mientras seas [anim=glow]tú[/anim]."
         },
         {
           "character": "narrator",
@@ -2200,7 +2241,7 @@
         ]
       },
       "completionTitle": "Recuerdo desbloqueado - Cuidarnos",
-      "completionText": "Los girasoles quedan como símbolo de las formas pequeñas en que se cuidan.",
+      "completionText": "Los girasoles quedan como símbolo de las formas pequeñas en que nos cuidamos.",
       "dialogues": [
         {
           "character": "narrator",
@@ -2217,7 +2258,7 @@
         },
         {
           "character": "robert",
-          "text": "Tal vez amamos distinto, pero ambos intentamos amar de verdad."
+          "text": "Tal vez amamos distinto, pero ambos intentamos amar de verdad y complementarnos."
         },
         {
           "character": "narrator",
@@ -2244,21 +2285,24 @@
       "dialogues": [
         {
           "character": "narrator",
-          "text": "Este recuerdo todavía no existe. Pero Robert quiere vivirlo contigo: ir a un lugar donde puedan mirar el cielo estrellado juntos.",
+          "text": "Este recuerdo todavía no existe. Pero quiero vivirlo contigo: [anim=glow]ir a un lugar donde podamos mirar el cielo estrellado juntos[/anim].",
           "important": true,
           "sfx": "sparkle"
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Me gustaría que un día estemos en una manta, con la noche tranquila encima y tú a mi lado."
         },
         {
           "character": "jennifer",
+          "characterAnimation": "bounce",
           "text": "Como si el futuro también pudiera empezar mirando hacia arriba."
         },
         {
           "character": "robert",
-          "text": "Quiero seguir construyendo contigo. Seguir mejorando. Seguir eligiéndote."
+          "characterAnimation": "bounce",
+          "text": "[anim=glow]Quiero seguir construyendo contigo. Seguir mejorando. Seguir eligiéndote.[/anim]"
         },
         {
           "character": "narrator",
@@ -2266,6 +2310,7 @@
         },
         {
           "character": "robert",
+          "characterAnimation": "bounce",
           "text": "Todavía nos faltan cielos por mirar juntos."
         }
       ]
@@ -2283,12 +2328,12 @@
         ]
       },
       "completionTitle": "Carta Final desbloqueada",
-      "completionText": "La carta completa esta lista para abrirse.",
+      "completionText": "No prometo que todo será perfecto. Prometo seguir intentando, seguir creciendo y seguir eligiéndote.",
       "completeLabel": "Leer carta",
       "dialogues": [
         {
           "character": "narrator",
-          "text": "[anim=glow]Te amo mucho, Bebé[/anim]. Quiero seguir construyendo un futuro contigo, seguir mejorando juntos y seguir eligiéndote.",
+          "text": "[anim=glow]Te amo mucho bebé[/anim]. Quiero seguir construyendo un futuro contigo, seguir mejorando juntos y seguir eligiéndote.",
           "important": true,
           "sfx": "paper"
         },
